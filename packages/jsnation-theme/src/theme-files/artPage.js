@@ -7,8 +7,8 @@ import Pagination from './pagination';
 import Footer from './footer';
 import UpFun from './scrollUp';
 
-const News = ({state,actions}) => {
-    // const [data,setdata]=useState([]);
+const ArtPage = ({state,actions}) => {
+    const [data,setdata]=useState([]);
     const [active,setactive]=useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
@@ -24,26 +24,31 @@ const News = ({state,actions}) => {
         };
     }, []);
 
-    // React.useEffect(async ()=>{
-    //     console.log('dat',data)
-    //     await setactive(data.items ? true:false)
-    //     await setdata(data.items ? data.items: []);
-    // },[])
-    const data=state.source.get('/');
-    console.log();
+    React.useEffect(async ()=>{
+        await actions.source.fetch('/')
+        const data=await state.source.get('/');
+        setdata(data.items);
+        setactive(true)
+    },[])
+    console.log(scrollPosition);
   return (
   <Container>
       <TextSlider/>
       <Content>
-        <Heading>News</Heading>
-        <Paragraph>RECEPIES</Paragraph>
-        <Paragraph>TRAVEL</Paragraph>
-        <Paragraph>VIDEO</Paragraph>
+        <Heading>ARTS</Heading>
+        <Paragraph>ARTS</Paragraph>
+        <Paragraph>FASHION</Paragraph>
+        <Paragraph>HEALTH</Paragraph>
+        <Paragraph>NEWS</Paragraph>
+        <Paragraph>PHOTOGRAPHY</Paragraph>
+        <Paragraph>SPORT</Paragraph>
+        <Paragraph>TECH</Paragraph>
+        <Paragraph>WORLD</Paragraph>
       </Content>
       <PostContainer>
 
         <Posts>
-        {data && data.items.map((item,i)=>{
+        {active && data.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
@@ -107,7 +112,7 @@ const News = ({state,actions}) => {
   )
 }
 
-export default connect(News);
+export default connect(ArtPage);
 
 const AdsContainer=styled.div`
 width:auto;
@@ -144,7 +149,7 @@ max-width:190px;`;
 
 const Heading=styled.h1`
 font-size:2.4rem;
-margin-left:50px;
+margin-left:160px;
 `
 const Paragraph=styled.p`
 font-size:0.7rem;

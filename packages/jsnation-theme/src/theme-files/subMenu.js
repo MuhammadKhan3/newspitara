@@ -7,7 +7,7 @@ const SubMenu = ({setmenu}) => {
         ['Travel','/category/news/travel'],
         ['Arts','/category/arts/'],
         ['Health','/category/health/'],
-        ['Video','/category/video'],
+        ['Video','/category/news/video'],
 
     ]
   return (

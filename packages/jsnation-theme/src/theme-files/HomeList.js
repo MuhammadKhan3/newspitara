@@ -50,7 +50,7 @@ const HomeList = ({actions,state}) => {
                  const category=state.source.category[post.categories[0]];
                  const link=decodeURI(item.link).split('/');
                  const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
-                 
+                 console.log('p.',link[1])
                  if(i===0){
                     return ( <Children key={i} className='header'>
                         {/* ads https://www.newspitara.com/wp-content/uploads/2021/11/corhaz3.png */}
@@ -58,7 +58,7 @@ const HomeList = ({actions,state}) => {
                             <Image src={attachment['source_url']}></Image>
                             <div className='content1'>
                                 <p className='category'>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                   <h1 className='link'>{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -70,7 +70,7 @@ const HomeList = ({actions,state}) => {
                     <Children key={i} >
                         <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' className='image-2'/>
                         <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                        <Link href={link}>
+                        <Link href={post.link+post.id}>
                         <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{content}</h1>
                         </Link>
                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -85,7 +85,7 @@ const HomeList = ({actions,state}) => {
                         <Children key={i} >
                             <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' className='image-2'/>
                             <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                            <Link href={link}>
+                            <Link href={post.link+post.id}>
                              <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{content}</h1>
                             </Link>
                             <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -96,7 +96,7 @@ const HomeList = ({actions,state}) => {
                      return(                        <Children key={i} >
                          <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' className='image-2'/>
                          <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                         <Link href={link}>
+                         <Link href={post.link}>
                          <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
                          </Link>
                          <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>

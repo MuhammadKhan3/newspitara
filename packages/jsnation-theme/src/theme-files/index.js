@@ -6,6 +6,18 @@ import Header from './header';
 import HeaderText from './headerText';
 import Home from './home';
 import News from './news';
+import FashionPage from './fashionPage';
+import WorldPage from './worldPage';
+import SportPage from './sportPage';
+import TechPage from './techPage';
+import Photography from './photography';
+import Recipes from './recipes';
+import ArtPage from './artPage';
+import TravelPage from './travelPage';
+import HealthPage from './healthPage';
+import VideoPage from './videoPage';
+import PostDetail from './postDetail';
+import Post from './post';
 const Root = ({state}) => {
   const data = state.source.get(state.router.link);
   console.log(data)
@@ -33,8 +45,21 @@ const Root = ({state}) => {
       <Container>
        <HeaderText/>
         <Switch>
-          <Home when={data.isHome}/>
-          <News when={data.isCategory}/>
+          {data.route==='/' &&<Home when={data.isHome}/>}
+          {data.route==='/category/news/' &&<News when={data.isCategory}/>}
+          {data.route==='/category/fashion/' && <FashionPage when={data.isCategory}/>}
+          {data.route==='/category/world/' && <WorldPage when={data.isCategory}/>}
+          {data.route==='/category/sport/' && <SportPage when={data.isCategory}/>}
+          {data.route==='/category/tech/' && <TechPage when={data.isCategory}/>}
+          {data.route==='/category/photography/' && <Photography when={data.isCategory}/>}
+          {data.route==='/category/news/recipes/' && <Recipes when={data.isCategory}/>}
+          {data.route==='/category/news/travel/' && <TravelPage when={data.isCategory}/>}
+          {data.route==='/category/arts/' && <ArtPage when={data.isCategory}/>}
+          {data.route==='/category/health/' && <HealthPage when={data.isCategory}/>}
+          {data.route==='/category/news/video/' && <VideoPage when={data.isCategory}/>}
+          <Post/>
+
+
         </Switch>    
       </Container> 
       </body> 
