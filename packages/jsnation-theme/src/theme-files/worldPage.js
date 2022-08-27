@@ -63,7 +63,7 @@ const WorldPage = ({state,actions}) => {
                            <Image src={attachment['source_url']} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'white',fontSize:'18px',marginTop:'5px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 
@@ -75,7 +75,7 @@ const WorldPage = ({state,actions}) => {
                         <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'white',marginTop:'5px',fontSize:'18px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -87,7 +87,7 @@ const WorldPage = ({state,actions}) => {
                         <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'350px',transform:'scale(1)'}}/>
                             <div style={{position:'relative',marginLeft:'10px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',color:'black'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'black',marginTop:'5px',fontSize:'18px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>

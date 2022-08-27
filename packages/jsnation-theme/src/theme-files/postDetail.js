@@ -1,11 +1,14 @@
 import { connect,styled,Global,css } from 'frontity';
 import React from 'react'
 import ReactDOM from 'react-dom';
+import Footer from './footer';
+import Link from './link';
+import RelatedNews from './RelatedNew';
 
 const PostDetail = ({state,libraries}) => {
 
     const Html2React = libraries.html2react.Component;
-
+    const home=state.source.get('/');
     const link=state.router.link.split('/');
     const post=state.source["post"][link[2]];
     const attachment=state.source.attachment[post.featured_media];
@@ -14,6 +17,7 @@ const PostDetail = ({state,libraries}) => {
     const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
     
   return (<>
+  <MainContainer>
   <Container>
     <Title>{post.title.rendered}</Title>
     <DateContent>
@@ -23,7 +27,7 @@ const PostDetail = ({state,libraries}) => {
     </DateContent>
     <Content>
       <svg xmlns="http://www.w3.org/2000/svg" style={{float:'left',display:'inline'}} width="40" height="40" viewBox="0 0 512 512"><title>ionicons-v5-j</title><path d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48Zm2,96a72,72,0,1,1-72,72A72,72,0,0,1,258,144Zm-2,288a175.55,175.55,0,0,1-129.18-56.6C135.66,329.62,215.06,320,256,320s120.34,9.62,129.18,55.39A175.52,175.52,0,0,1,256,432Z"/></svg>
-       <p style={{position:'relative',top:'7px',display:'inline',fontSize:'11px'}}>By <span style={{fontWeight:'bold'}}>{author.name}</span></p>    
+       <p style={{position:'relative',top:'7px',display:'inline',fontSize:'11px'}}>By <span style={{fontWeight:'bold'}}>{author ? author.name:''}</span></p>    
     </Content>
     <Share>
         <div style={{border:'1px  solid  #E0E0E0',display:"inline",padding:'10px',paddingLeft:'20px',paddingRight:'20px',paddingTop:'18px',paddingBottom:'5px'}}>
@@ -56,10 +60,10 @@ const PostDetail = ({state,libraries}) => {
     </AdsContainer> 
     <ContentContainer>
         <ContentContainerOne>
-          <Attachment src={attachment ? attachment['source_url']: ''} style={{display:'block'}}/>
+          <Attachment src={attachment ? attachment['source_url']: ''} style={{display:'block'}} width='750px'/>
           <AdsContainer>
             <Text>-Advertisement-</Text>
-            <img width='780px' src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'/>
+            <img width='740px' src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'/>
            
           </AdsContainer>
           <div style={{width:'780px',marginTop:'10px'}}>
@@ -110,21 +114,96 @@ const PostDetail = ({state,libraries}) => {
                   <p style={{fontSize:'12px',display:'inline',marginLeft:'8px',position:'relative',top:'-5px',color:'white'}}>Twitter</p>
                 </div>
             </Share>
-    </ContentContainerOne>
-    <ContentContainerTwo>
+           </ContentContainerOne>
+           <ContentContainerTwo>
+              <h1 style={{fontSize:'16px',borderLeft:'3px solid #4169E1',paddingLeft:'5px'}}>Latest News</h1>
+             <RightPost  >
+                {home && home.items.map((item,i)=>{
+                    const post=state.source[item.type][item.id];
+                    const attachment=state.source.attachment[post.featured_media];
+                    const author=state.source.author[post.author];
+                    const category=state.source.category[post.categories[0]];
+                    const link=decodeURI(item.link).split('/');
+                    const content=post.content.rendered.split('<p>')[1].split('</p>')[0];            
+                    console.log(post)
+                    return(<div >
+                        {i===1 ?
+                                ( <Children key={i} style={{width:'270px',height:'310px',overflow:'hidden',marginTop:'10px'}} >                                                
+                                <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
+                                    <div style={{position:'relative',top:'30px',color:'white'}}>
+                                        <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
+                                        <Link href={post.link+post.id}>
+                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'15px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
+                                        </Link>
+                                        <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                    </div>                         
+                                </Children>)
+                                :i===2 
+                                 ? <>
+                                         <ImageContainer>
+                                          <Advert>- Advertisement -</Advert>
+                                          <ImageOne src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz2.png'/>
+                                          </ImageContainer>
+                                          <Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
+                                          <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                                          <div style={{position:'relative',float:'left',left:'20px'}}>
+                                          <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
+                                          <Link href={post.link+post.id}>
+                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                          </Link>
+                                          <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                    </div>                         
+                            </Children>
+                                </>:i>2 && i<=4 && (<Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
+                               <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                                <div style={{position:'relative',float:'left',left:'20px'}}>
+                                    <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
+                                    <Link href={post.link+post.id}>
+                                        <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                    </Link>
+                                    <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                </div>                         
+                            </Children>)
+                        }
+                        </div>)
 
-        </ContentContainerTwo>
+                })}
+                </RightPost>     
+           </ContentContainerTwo>
     </ContentContainer>
   </Container>
+    <RelatedNews/>
+    <div style={{position:'relative',top:'140px',marginLeft:'390px'}}>
+      <Text>-Advertisement-</Text>
+      <img width='940px' src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'/>
+    </div>
+    <div style={{position:'relative',top:'200px',left:'480px',width:'800px'}}>
+      <h1 style={{fontSize:'14px',fontWeight:'700'}}>LEAVE A REPLY</h1>
+      <p style={{fontSize:'12px',fontWeight:'700',marginTop:'10px'}}>Logged in as {author ? author.name :''}. Log out?</p>
+      <textarea style={{borderColor:'#E0E0E0',marginTop:'10px'}} rows="9" cols="90"></textarea>
+      <Button >POST COMMENT</Button>
+    </div>
+    <Footer top={'220px'}/>
+  </MainContainer>
   </>)
 }
 export default connect(PostDetail)
 
+const MainContainer=styled.div``
 
 
 const Attachment=styled.img`
 `;
-const ContentContainer=styled.div``
+const ContentContainer=styled.div`
+position:relative;
+height:100%;
+width:100%;
+max-width:1000px;
+display:grid;
+grid-template-columns:auto auto;
+grid-template-rows:auto auto auto auto auto;
+grid-row-gap:10px;
+`
 const ContentContainerOne=styled.div``
 const ContentContainerTwo=styled.div``
 
@@ -189,4 +268,42 @@ const Advert=styled.p`
 font-size:10px;
 margin-left:80px;
 color:gray;
+`
+const RightPost=styled.div`
+display:grid;
+grid-template-columns:auto;
+grid-template-rows:auto;
+width:400px;
+height:auto;
+`
+const Children=styled.div`
+
+`
+const Image=styled.img`
+width:400px;
+height:180px;
+// overflow:hidden;
+// &:hover{
+//     transform:scale(1.1);
+//     cursor:pointer;
+// }
+`
+const Button=styled.p`
+display:block;
+marginTop:5px;
+background-color:black;
+color:white;
+paddingLeft:15px;
+paddingRight:15px;
+padding:10px;
+paddingBottom:5px;
+display:block;
+width:fit-content;
+paddingTop:5px; 
+&:hover
+{
+background-color:#4169E1;
+cursor:pointer;
+border:none;
+}
 `

@@ -36,7 +36,7 @@ return (<>
             <Picks>
                 <Heading>EDITOR PICKS</Heading>
                 <GridContainer>
-                 {data.items.map((item,i)=>{
+                 {typeof data.items==='object' && data.items.map((item,i)=>{
                     const post=state.source[item.type][item.id];
                     const attachment=state.source.attachment[post.featured_media];
                     const author=state.source.author[post.author]
@@ -44,11 +44,11 @@ return (<>
                     const link=decodeURI(item.link).split('/');
                     const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
                     if(i>=1 && i<=3){
-                        return (<Children>
-                            <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'/>
+                        return (<Children key={i}>
+                            <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                             <Content>
                                 <Category>{category.name}</Category>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                   <Title className='links'>{content}</Title>
                                 </Link>
                                 <Span>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</Span>
@@ -61,10 +61,10 @@ return (<>
                  })}
                 </GridContainer>
             </Picks>
-            <Read>
+             <Read>
                 <Heading>MUST READ</Heading>
                 <GridContainer>
-                 {data.items.map((item,i)=>{
+                 {typeof data.items==='object' && data.items.map((item,i)=>{
                     const post=state.source[item.type][item.id];
                     const attachment=state.source.attachment[post.featured_media];
                     const author=state.source.author[post.author]
@@ -72,11 +72,11 @@ return (<>
                     const link=decodeURI(item.link).split('/');
                     const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
                     if(i>=1 && i<=3){
-                        return (<Children>
-                            <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'/>
+                        return (<Children  key={i}>
+                            <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                             <Content>
                                 <Category>{category.name}</Category>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                   <Title className='links'>{content}</Title>
                                 </Link>
                                 <Span>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</Span>
@@ -92,15 +92,30 @@ return (<>
             <Popular>
                <Heading>POPULAR CATEGORIES</Heading>
                <ListContainer>
+                    <Link href={'/category/tech/'}>
                         <List>Tech <span style={{marginLeft:'213px'}}>{tech.total}</span></List>
+                    </Link>    
+                    <Link href={'/category/world/'}>
                         <List>World<span style={{marginLeft:'210px'}}>{world.total}</span> </List>
+                    </Link>
+                    <Link href={'/category/health/'}>
                         <List>Health<span style={{marginLeft:'208px'}}>{health.total}</span></List>
+                    </Link>
+                    <Link href={'/category/arts/'}>
                         <List>Arts<span style={{marginLeft:'222px'}}>{arts.total}</span></List>
+                    </Link>
+                    <Link href={'/category/photography/'}>
                         <List>Photography<span style={{marginLeft:'172px'}}>{photography.total}</span></List>
+                    </Link>    
+                    <Link href={'/category/fashion/'}>
                         <List>Fashion<span style={{marginLeft:'200px'}}>{fashion.total}</span></List>
+                    </Link>
+                    {console.log(typeof sport.total)}
+                    <Link href={'/category/sport/'}>
                         <List>Sport<span style={{marginLeft:'215px'}}>{sport.total}</span></List>
+                    </Link>
                </ListContainer>
-            </Popular>
+            </Popular> 
 
             <ImageContainer>
                 <Advert>- Advertisement -</Advert>

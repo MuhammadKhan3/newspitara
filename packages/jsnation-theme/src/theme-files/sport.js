@@ -5,10 +5,13 @@ import Fashion from './fashion';
 import Footer from './footer';
 const Sports= ({actions,state}) => {
     React.useEffect(()=>{
-        actions.source.fetch('/')
+        actions.source.fetch('/category/sport/');
+        actions.source.fetch('/category/recipes/')
+
     },[])
-    const data=state.source.get('/');
-    console.log(data)
+    const sport=state.source.get('/');
+    const recipes=state.source.get('/');
+
   return (<>
   <Global styles={css`
     .category{
@@ -26,7 +29,7 @@ const Sports= ({actions,state}) => {
         <Sport>
             <Heading>SPORT NEWS</Heading>
         <div css={css`display:grid;grid-template-columns:auto auto auto auto; grid-template-rows:auto auto; height:content-fit;gap:10px;`} style={{marginTop:'30px',}}>
-            {data.items.map((item,i)=>{
+            {typeof sport.items==='object' && sport.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -38,11 +41,10 @@ const Sports= ({actions,state}) => {
 
                         if(i===0){
                             return ( <Children key={i} className='' css={css`color:black;width:400px;grid-column-start:1;grid-column-end:3;`}>
-                                    {/* <p>{i}</p>                                 */}
-                                    <Image src={attachment['source_url']}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                                     <div css={css`   width:500px;color:black;font-family:Arial;`}>
                                         <p className='category' css={css`width:160px;`}>{category.name}</p>
-                                        <Link href={link}>
+                                        <Link href={post.link+post.id}>
                                           <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black;`} >{link}</h1>
                                         </Link>
                                         <p css={css`font-size:11px;width:160px;`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -52,12 +54,12 @@ const Sports= ({actions,state}) => {
                         else if(i>=1 && i<=2){
                                 return(<>
                                 <Children key={i}  css={css`width:160px; `}>
-                                {/* <p>{i}</p>                                 */}
 
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:160px;`}/>
+
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:160px;`}/>
                                 <p className='category' style={{color:'green'}}>{category.name}</p>
-                                <Link href={link}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{content}</h1>
+                                <Link href={post.link+post.id}>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{link}</h1>
                                 </Link>
                                 <p css={css`font-size:11px;`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
@@ -65,12 +67,11 @@ const Sports= ({actions,state}) => {
                         else if(i===3){
                             return(<>
                                 <Children key={i}  css={css`width:430px;grid-column-start:3;grid-column-end:5 ;grid-row-start:1;grid-row-end:3; `}>
-                                {/* <p>{i}</p>                                 */}
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:360px;height:540px; box-shadow: inset 20px 20px 50px 10px pink; filter:brightness(80%)`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:360px;height:540px; box-shadow: inset 20px 20px 50px 10px pink; filter:brightness(80%)`}/>
                                 <div css={css`position:absolute; top:533px;color:white;margin-left:15px;`}>
                                     <p className='category' style={{color:'white'}}>{category.name}</p>
-                                    <Link href={link}>
-                                    <h1 className='link' style={{color:'white',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'340px',}}>{content}</h1>
+                                    <Link href={post.link+post.id}>
+                                    <h1 className='link' style={{color:'white',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'340px',}}>{link}</h1>
                                     </Link>
                                     <p css={css`font-size:11px;`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>
@@ -84,11 +85,12 @@ const Sports= ({actions,state}) => {
 
                     }
             </div>
-            </Sport>
+            </Sport>  
+
             <Recipes>
                 <h1 className='' css={css`font-weight:bold;border-left:3px solid yellow;padding-left:5px;font-size:17px;`}>RECIPES</h1>
             <div css={css`display:grid;grid-template-columns:auto auto; grid-template-rows:auto auto; height:content-fit;gap:10px;`} style={{marginTop:'30px',}}>
-                {data.items.map((item,i)=>{
+                {typeof recipes.items==='object' && recipes.items.map((item,i)=>{
                             const post=state.source[item.type][item.id];
                             const attachment=state.source.attachment[post.featured_media];
                             const author=state.source.author[post.author]
@@ -100,12 +102,11 @@ const Sports= ({actions,state}) => {
 
                             if(i===0){
                                 return ( <Children key={i} className='' css={css`color:black;width:400px;grid-column-start:1;grid-column-end:3;`}>
-                                        {/* <p>{i}</p>                                 */}
-                                        <Image src={attachment['source_url']}/>
+                                        <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                                         <div css={css`   width:500px;color:black;font-family:Arial;`}>
                                             <p className='category' css={css`width:160px;`}>{category.name}</p>
-                                            <Link href={link}>
-                                            <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black;`}>{link}</h1>
+                                            <Link href={post.link+post.id}>
+                                              <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black;`}>{link}</h1>
                                             </Link>
                                             <p css={css`font-size:11px;width:160px;`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                         </div> 
@@ -114,12 +115,11 @@ const Sports= ({actions,state}) => {
                             else if(i>=1 && i<=2){
                                     return(<>
                                     <Children key={i}  css={css`width:160px; `}>
-                                    {/* <p>{i}</p>                                 */}
 
-                                    <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:160px;`}/>
+                                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:160px;`}/>
                                     <p className='category' style={{color:'green'}}>{category.name}</p>
-                                    <Link href={link}>
-                                    <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{content}</h1>
+                                    <Link href={post.link+post.id}>
+                                    <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{link}</h1>
                                     </Link>
                                     <p css={css`font-size:11px;`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </Children></>)
@@ -134,7 +134,7 @@ const Sports= ({actions,state}) => {
                 </div>
             </Recipes>
         </InnerContainer>
-        <Fashion/>
+         <Fashion/>
     </Container>
    </>)
 }

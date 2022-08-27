@@ -53,6 +53,7 @@ const SearchBox = ({actions,state}) => {
       width:90px;
       float:left;
       font-size:12px;
+      color:black;
       margin-left:5px;
       margin-top:3px;
       // font-weight:bold;
@@ -95,7 +96,7 @@ const SearchBox = ({actions,state}) => {
             }
           return <Children key={i}>
             <img src={attachment ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_324x400.png'} className='image'/>
-            <Link href={item.link}><p  className='link'>{link[1]}</p></Link>
+            <Link href={post.link+post.id}><p  className='link'>{link}</p></Link>
             <br/>
             <span className='author'>{author ? author.name :''} <span className='date'>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</span></span>
           </Children>

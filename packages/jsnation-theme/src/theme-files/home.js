@@ -24,7 +24,7 @@ const Home = () => {
         <Sports/>
         <Ads top={'460px'}/>
         <VideoList top={'3700px'}/>
-        <Footer top={'1200px'}/> 
+        <Footer top={'1300px'}/>    
     </Container>
   )
 }

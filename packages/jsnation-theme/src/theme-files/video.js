@@ -3,11 +3,10 @@ import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
 const VideoList= ({actions,state,top}) => {
     React.useEffect(()=>{
-        actions.source.fetch('/')
+        actions.source.fetch('/category/news/video/')
     },[])
-    const data=state.source.get('/');
+    const data=state.source.get('/category/news/video/');
 
-    console.log(top)
   return (<>
   <Global styles={css`
     .content{
@@ -40,7 +39,7 @@ const VideoList= ({actions,state,top}) => {
     <InnerContainer>
         <Heading>Video</Heading>
         <div className='inner' style={{marginTop:'30px'}}>
-            {data.items.map((item,i)=>{
+            {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -53,7 +52,7 @@ const VideoList= ({actions,state,top}) => {
                         if(i===0){
                             return ( <Children key={i} >
                                 
-                                    <Image src={attachment['source_url']}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
 
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -63,7 +62,7 @@ const VideoList= ({actions,state,top}) => {
                                                     margin-left:20px;`}>
 
                                         <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
-                                        <Link href={link}>
+                                        <Link href={post.link+post.id}>
                                           <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white;`}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -73,10 +72,10 @@ const VideoList= ({actions,state,top}) => {
                         else if(i>=1 && i<=3){
                                 return(<>
                                 <Children key={i}  css={css`margin-left:20px;`}>
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:270px;`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;`}/>
                                 <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
-                                <Link href={link}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{content}</h1>
+                                <Link href={post.link+post.id}>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
@@ -97,7 +96,6 @@ export default connect(VideoList)
 
 const Container=styled.div`
 background-color:white;
-
 width:auto;
 height:auto;
 padding:10px;

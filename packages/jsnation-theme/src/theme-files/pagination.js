@@ -6,6 +6,7 @@ const Pagination = ({state,actions}) => {
     const [page,setpage]=useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
     const [active,setactive]=useState(false);
+
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -18,14 +19,10 @@ const Pagination = ({state,actions}) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    React.useEffect(async ()=>{
-        await actions.source.fetch('/')
-        setdata(data.items);
-        setactive(data.items ? true : false)
-    },[])
+
     actions.source.fetch(state.router.link);
     const data=state.source.get(state.router.link);
-    const home=state.source.get('/');
+    const news=state.source.get(state.router.link);
     for (let index = 0; index < data.totalPages; index++) {
         console.log(data.link+"page/"+(index+1)+"/");
         console.log(state.router.link)
@@ -43,19 +40,19 @@ const Pagination = ({state,actions}) => {
     <InnerOne>
         <PostContainer>
             <Posts>
-            {data && data.items.map((item,i)=>{
+            {typeof data.items && data.items.map((item,i)=>{
                 const post=state.source[item.type][item.id];
-                const attachment=state.source.attachment[post.featured_media];
+                const attachment=state.source.attachment[post.featured_media ? 1:0];
                 const author=state.source.author[post.author];
                 const category=state.source.category[post.categories[0]];
                 const link=decodeURI(item.link).split('/');
                 const content=post.content.rendered.split('<p>')[1].split('</p>')[0];            
                     
                         return ( <Children key={i} style={{width:'330px'}} >                                                
-                            <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'330px',transform:'scale(1)'}}/>
+                            <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'330px',transform:'scale(1)'}}/>
                                 <div style={{position:'relative',color:'white'}}>
                                     <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
-                                    <Link href={link}>
+                                    <Link href={post.link+post.id}>
                                         <h1 css={css`&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'15px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
                                     </Link>
                                     <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -83,7 +80,7 @@ const Pagination = ({state,actions}) => {
     <InnerTwo>
         <h1 style={{fontSize:'16px',borderLeft:'3px solid #4169E1',paddingLeft:'5px'}}>MUST READ</h1>
         <RightPost  >
-                {home && home.items.map((item,i)=>{
+                {typeof news.items==='object' && news.items.map((item,i)=>{
                     const post=state.source[item.type][item.id];
                     const attachment=state.source.attachment[post.featured_media];
                     const author=state.source.author[post.author];
@@ -94,37 +91,37 @@ const Pagination = ({state,actions}) => {
                     return(<div >
                         {i===0 ?
                                 ( <Children key={i} style={{width:'270px',height:'310px',overflow:'hidden',marginTop:'10px'}} >                                                
-                                <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
+                                <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
                                     <div style={{position:'relative',top:'30px',color:'white'}}>
                                         <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
-                                        <Link href={link}>
+                                        <Link href={post.link+post.id}>
                                             <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'15px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
                                         </Link>
                                         <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div>                         
                                 </Children>)
                                 :i>=1 && i<2
-                                ? <>
-                                    <ImageContainer>
+                                 ? <>
+                                         <ImageContainer>
                                           <Advert>- Advertisement -</Advert>
                                           <ImageOne src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz2.png'/>
                                           </ImageContainer>
                                           <Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
-                                          <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                                          <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
                                           <div style={{position:'relative',float:'left',left:'20px'}}>
                                           <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
-                                          <Link href={link}>
-                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                          <Link href={post.link+post.id}>
+                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{link}</h1>
                                           </Link>
                                           <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div>                         
                             </Children>
                                 </>:i<=3 && (<Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
-                               <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                               <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
                                 <div style={{position:'relative',float:'left',left:'20px'}}>
                                     <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
-                                    <Link href={link}>
-                                        <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                    <Link href={post.link+post.id}>
+                                        <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{link}</h1>
                                     </Link>
                                     <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>                         

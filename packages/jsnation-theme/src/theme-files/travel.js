@@ -3,9 +3,9 @@ import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
 const TravelList= ({actions,state}) => {
     React.useEffect(()=>{
-        actions.source.fetch('/')
+        actions.source.fetch('/category/news/travel/')
     },[])
-    const data=state.source.get('/');
+    const data=state.source.get('/category/news/travel/');
     console.log(data)
   return (<>
   <Global styles={css`
@@ -38,7 +38,7 @@ const TravelList= ({actions,state}) => {
     <InnerContainer>
         <Heading>Travel</Heading>
         <div className='inner' style={{marginTop:'30px'}}>
-            {data.items.map((item,i)=>{
+            {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -51,7 +51,7 @@ const TravelList= ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className=''>
                                 
-                                    <Image src={attachment['source_url']}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
 
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -61,7 +61,7 @@ const TravelList= ({actions,state}) => {
                                                     margin-left:20px;`}>
 
                                         <p className='category'>{category.name}</p>
-                                        <Link href={link}>
+                                        <Link href={post.link+post.id}>
                                           <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white;`}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -71,12 +71,12 @@ const TravelList= ({actions,state}) => {
                         else if(i>=1 && i<=3){
                                 return(<>
                                 <Children key={i}  css={css`margin-left:20px;`}>
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:270px;`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;`}/>
                                 <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                                <Link href={link}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{content}</h1>
+                                <Link href={post.link+post.id}>
+                                   <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{link}</h1>
                                 </Link>
-                                <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                <p className='author'>{author ?author.name: ''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
                         }
                         else{

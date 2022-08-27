@@ -1,7 +1,7 @@
 import React from 'react'
 import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
-const FashionList= ({actions,state}) => {
+const RelatedNews= ({actions,state}) => {
     React.useEffect(()=>{
         actions.source.fetch('/')
     },[])
@@ -38,9 +38,9 @@ const FashionList= ({actions,state}) => {
     `}/>
     <Container>
     <InnerContainer>
-        <Heading>Fashion</Heading>
+        <Heading>Related News</Heading>
         <div className='inner' style={{marginTop:'30px'}}>
-            {typeof data.items==='object' && data.items.map((item,i)=>{
+            {data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -53,7 +53,7 @@ const FashionList= ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className=''>
                                 
-                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
+                                    <Image src={attachment['source_url']}/>
 
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -66,19 +66,19 @@ const FashionList= ({actions,state}) => {
                                         <Link href={post.link+post.id}>
                                           <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black;`}>{link}</h1>
                                         </Link>
-                                        <p className='author'>{author? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                        <p className='author'>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
                                 </Children>)
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
                                 <Children key={i}  css={css`margin-left:20px;`}>
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;`}/>
+                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:270px;`}/>
                                 <p className='category' style={{color:'#DB7093'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{link}</h1>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{content}</h1>
                                 </Link>
-                                <p className='author'>{author? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                <p className='author'>{author ?author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
                         }
                         else{
@@ -93,17 +93,17 @@ const FashionList= ({actions,state}) => {
     </Container>
    </>)
 }
-export default connect(FashionList)
+export default connect(RelatedNews)
 
 const Container=styled.div`
 background-color:#F2F2F2;
-position:absolute;
-top:680px;
+position:relative;
 max-width:auto;
-width:1573px;
+width:1582px;
 height:auto;
 padding:10px;
 display:flex;
+top:100px;
 flex-direction:row;
 `
 const InnerContainer=styled.div`

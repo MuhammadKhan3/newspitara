@@ -16,7 +16,6 @@ export default {
     theme: {
       init: ({libraries}) =>
         libraries.source.handlers.push(NewsHandler,FashionHandler),
-
       beforeSSR: async ({state, actions}) =>{
         console.log('ne',state.source.news)
         await actions.source.fetch('/category/news')

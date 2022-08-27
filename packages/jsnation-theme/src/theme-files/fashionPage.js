@@ -8,8 +8,6 @@ import Footer from './footer';
 import UpFun from './scrollUp';
 
 const FashionPage = ({state,actions}) => {
-    const [data,setdata]=useState([]);
-    const [active,setactive]=useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -23,14 +21,8 @@ const FashionPage = ({state,actions}) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    React.useEffect(async ()=>{
-        await actions.source.fetch('/')
-        const data=await state.source.get('/');
-        setdata(data.items);
-        setactive(true)
-    },[])
-    console.log(scrollPosition);
+        actions.source.fetch('/category/fashion/')
+        const data=state.source.get('/category/fashion/');
   return (
   <Container>
       <TextSlider/>
@@ -48,22 +40,20 @@ const FashionPage = ({state,actions}) => {
       <PostContainer>
 
         <Posts>
-        {active && data.map((item,i)=>{
+        {typeof data.items==='object' ? data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
-            const attachment=state.source.attachment[post.featured_media];
+            const attachment=state.source.attachment[post.featured_media ?post.featured_media :0];
             const author=state.source.author[post.author];
             const category=state.source.category[post.categories[0]];
             const link=decodeURI(item.link).split('/');
             const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
-            console.log('con',content)
-            console.log('url',decodeURI(post.link))
             
                     if(i===0){
                      return ( <Children key={i}  style={{width:'550px'}} >                                            
-                           <Image src={attachment['source_url']} style={{width:'550px'}}/>
+                           <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'white',fontSize:'18px',marginTop:'5px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 
@@ -72,10 +62,10 @@ const FashionPage = ({state,actions}) => {
                         </Children>)
                    }else if(i===1){
                        return ( <Children key={i} style={{width:'550px'}}>                                                
-                        <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' style={{width:'550px'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'white',marginTop:'5px',fontSize:'18px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -84,10 +74,10 @@ const FashionPage = ({state,actions}) => {
                    }
                    else if(i>=2 && i<=4){
                        return ( <Children key={i} style={{width:'370px'}} css={css`&:hover{text-decoration:underline;}`}>                                                
-                        <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'350px',transform:'scale(1)'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'350px',transform:'scale(1)'}}/>
                             <div style={{position:'relative',marginLeft:'10px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',color:'black'}}>{category.name}</p>
-                                <Link href={link}>
+                                <Link href={post.link+post.id}>
                                     <h1 style={{color:'black',marginTop:'5px',fontSize:'18px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -98,7 +88,7 @@ const FashionPage = ({state,actions}) => {
                      return;
                    }
             
-        })}
+        }):''}
         </Posts>
       </PostContainer>
         <AdsContainer>

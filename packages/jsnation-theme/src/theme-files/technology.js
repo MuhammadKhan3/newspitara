@@ -3,9 +3,9 @@ import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
 const TechnologyList = ({actions,state}) => {
     React.useEffect(()=>{
-        actions.source.fetch('/')
+        actions.source.fetch('/category/tech')
     },[])
-    const data=state.source.get('/');
+    const data=state.source.get('/category/tech');
     console.log(data)
   return (<>
   <Global styles={css`
@@ -55,7 +55,7 @@ const TechnologyList = ({actions,state}) => {
     <InnerContainer>
         <Heading>TECHNOLOGY</Heading>
         <div className='inner' style={{marginTop:'30px'}}>
-            {data.items.map((item,i)=>{
+            {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -68,10 +68,10 @@ const TechnologyList = ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className=''>
                                 
-                                    <Image src={attachment['source_url']}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                                     <div className='content'>
                                         <p className='category'>{category.name}</p>
-                                        <Link href={link}>
+                                        <Link href={post.link+post.id}>
                                         <h1 className='link'>{link}</h1>
                                         </Link>
                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -82,20 +82,20 @@ const TechnologyList = ({actions,state}) => {
                         else if(i>=1 && i<=2){
                                 return(<>
                                 <Children key={i}  className='header'>
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' className='image-2'/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
                                 <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                                <Link href={link}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{content}</h1>
+                                <Link href={post.link+post.id}>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
                         }
                         else if(i>=4 && i<=9){
                             return(<Children key={i} className={i===4 ? "" : 'flex-2'} style={{marginTop:'30px'}} >
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' className='fleximage-2'/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='fleximage-2'/>
                                 <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                                <Link href={link}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'14px',width:'160px'}}>{content}</h1>
+                                <Link href={post.link+post.id}>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'14px',width:'160px'}}>{link}</h1>
                                 </Link>
                                 <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children>)
