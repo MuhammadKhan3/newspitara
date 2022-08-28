@@ -77,7 +77,7 @@ font-weight:bold;
 `
 const InnerContainer=styled.div`
 position:relative;
-left:10.81rem;
+left:28.81rem;
 width:300px;
 color:#4169E1;
 display:grid;

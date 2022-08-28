@@ -8,8 +8,6 @@ import Footer from './footer';
 import UpFun from './scrollUp';
 
 const TravelPage = ({state,actions}) => {
-    const [data,setdata]=useState([]);
-    const [active,setactive]=useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -24,13 +22,8 @@ const TravelPage = ({state,actions}) => {
         };
     }, []);
 
-    React.useEffect(async ()=>{
-        await actions.source.fetch('/')
-        const data=await state.source.get('/');
-        setdata(data.items);
-        setactive(true)
-    },[])
-    console.log(scrollPosition);
+        actions.source.fetch('/category/news/travel')
+        const data=state.source.get('/category/news/travel');
   return (
   <Container>
       <TextSlider/>
@@ -44,7 +37,7 @@ const TravelPage = ({state,actions}) => {
       <PostContainer>
 
         <Posts>
-        {active && data.map((item,i)=>{
+        {typeof data.items==='object' && data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
@@ -56,7 +49,7 @@ const TravelPage = ({state,actions}) => {
             
                     if(i===0){
                      return ( <Children key={i}  style={{width:'550px'}} >                                            
-                           <Image src={attachment['source_url']} style={{width:'550px'}}/>
+                           <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -68,7 +61,7 @@ const TravelPage = ({state,actions}) => {
                         </Children>)
                    }else if(i===1){
                        return ( <Children key={i} style={{width:'550px'}}>                                                
-                        <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' style={{width:'550px'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -80,7 +73,7 @@ const TravelPage = ({state,actions}) => {
                    }
                    else if(i>=2 && i<=4){
                        return ( <Children key={i} style={{width:'370px'}} css={css`&:hover{text-decoration:underline;}`}>                                                
-                        <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'350px',transform:'scale(1)'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'350px',transform:'scale(1)'}}/>
                             <div style={{position:'relative',marginLeft:'10px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',color:'black'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>

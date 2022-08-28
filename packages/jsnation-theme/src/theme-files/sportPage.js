@@ -8,8 +8,7 @@ import Footer from './footer';
 import UpFun from './scrollUp';
 
 const SportPage = ({state,actions}) => {
-    const [data,setdata]=useState([]);
-    const [active,setactive]=useState(false);
+
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -24,13 +23,9 @@ const SportPage = ({state,actions}) => {
         };
     }, []);
 
-    React.useEffect(async ()=>{
-        await actions.source.fetch('/')
-        const data=await state.source.get('/');
-        setdata(data.items);
-        setactive(true)
-    },[])
-    console.log(scrollPosition);
+
+    actions.source.fetch('/category/sport')
+    const data=state.source.get('/category/sport');
   return (
   <Container>
       <TextSlider/>
@@ -42,26 +37,25 @@ const SportPage = ({state,actions}) => {
         <Paragraph>HEALTH</Paragraph>
         <Paragraph>NEWS</Paragraph>
         <Paragraph>PHOTOGRAPHY</Paragraph>
-        <Paragraph>SPORT</Paragraph>
+        <Paragraph style={{backgroundColor:'#4169E1'}}>SPORT</Paragraph>
         <Paragraph>TECH</Paragraph>
         <Paragraph>WORLD</Paragraph>
       </Content>
       <PostContainer>
 
         <Posts>
-        {active && data.map((item,i)=>{
+        {typeof data.items==='object' && data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
             const category=state.source.category[post.categories[0]];
             const link=decodeURI(item.link).split('/');
             const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
-            console.log('con',content)
-            console.log('url',decodeURI(post.link))
+
             
                     if(i===0){
                      return ( <Children key={i}  style={{width:'550px'}} >                                            
-                           <Image src={attachment['source_url']} style={{width:'550px'}}/>
+                           <Image src={typeof attachment==='object' ?attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -73,7 +67,7 @@ const SportPage = ({state,actions}) => {
                         </Children>)
                    }else if(i===1){
                        return ( <Children key={i} style={{width:'550px'}}>                                                
-                        <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' style={{width:'550px'}}/>
+                        <Image src={typeof attachment==='object' ?attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -85,7 +79,7 @@ const SportPage = ({state,actions}) => {
                    }
                    else if(i>=2 && i<=4){
                        return ( <Children key={i} style={{width:'370px'}} css={css`&:hover{text-decoration:underline;}`}>                                                
-                        <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'350px',transform:'scale(1)'}}/>
+                        <Image src={typeof attachment==='object' ?attachment['source_url']:''} style={{width:'350px',transform:'scale(1)'}}/>
                             <div style={{position:'relative',marginLeft:'10px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',color:'black'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>

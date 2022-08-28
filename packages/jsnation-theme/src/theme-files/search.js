@@ -44,7 +44,7 @@ const Search = ({state,actions}) => {
         <Image src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz3.png'></Image>
       </AdsContainer>
       <Posts >
-      {data.items.map((item,i)=>{
+      {typeof data.items==='object' && data.items.map((item,i)=>{
                  const post=state.source[item.type][item.id];
                  const attachment=state.source.attachment[post.featured_media ?post.featured_media :0];
                  const author=state.source.author[post.author]

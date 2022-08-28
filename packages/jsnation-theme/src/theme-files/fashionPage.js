@@ -29,7 +29,7 @@ const FashionPage = ({state,actions}) => {
       <Content>
         <Heading>FASHION</Heading>
         <Paragraph>ARTS</Paragraph>
-        <Paragraph>FASHION</Paragraph>
+        <Paragraph style={{backgroundColor:'#4169E1'}}>FASHION</Paragraph>
         <Paragraph>HEALTH</Paragraph>
         <Paragraph>NEWS</Paragraph>
         <Paragraph>PHOTOGRAPHY</Paragraph>

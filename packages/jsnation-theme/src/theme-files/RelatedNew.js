@@ -2,9 +2,8 @@ import React from 'react'
 import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
 const RelatedNews= ({actions,state}) => {
-    React.useEffect(()=>{
-        actions.source.fetch('/')
-    },[])
+    
+    actions.source.fetch('/')
     const data=state.source.get('/');
     console.log(data)
   return (<>
@@ -40,7 +39,7 @@ const RelatedNews= ({actions,state}) => {
     <InnerContainer>
         <Heading>Related News</Heading>
         <div className='inner' style={{marginTop:'30px'}}>
-            {data.items.map((item,i)=>{
+            {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
                         const author=state.source.author[post.author]
@@ -53,7 +52,7 @@ const RelatedNews= ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className=''>
                                 
-                                    <Image src={attachment['source_url']}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
 
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -73,7 +72,7 @@ const RelatedNews= ({actions,state}) => {
                         else if(i>=1 && i<=3){
                                 return(<>
                                 <Children key={i}  css={css`margin-left:20px;`}>
-                                <img  src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' css={css `width:270px;`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;`}/>
                                 <p className='category' style={{color:'#DB7093'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
                                 <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{content}</h1>

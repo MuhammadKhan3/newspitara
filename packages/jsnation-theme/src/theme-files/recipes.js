@@ -8,8 +8,6 @@ import Footer from './footer';
 import UpFun from './scrollUp';
 
 const Recepies = ({state,actions}) => {
-    const [data,setdata]=useState([]);
-    const [active,setactive]=useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -24,26 +22,23 @@ const Recepies = ({state,actions}) => {
         };
     }, []);
 
-    React.useEffect(async ()=>{
-        await actions.source.fetch('/')
-        const data=await state.source.get('/');
-        setdata(data.items);
-        setactive(true)
-    },[])
+    actions.source.fetch('/category/news/recipes')
+    const data=state.source.get('/category/news/recipes');
+       
     console.log(scrollPosition);
   return (
   <Container>
       <TextSlider/>
       <Content>
-        <Heading>Recipes</Heading>
-        <Paragraph>RECIPES</Paragraph>
+        <Heading >Recipes</Heading>
+        <Paragraph style={{backgroundColor:'#4169E1'}}>RECIPES</Paragraph>
         <Paragraph>TRAVEL</Paragraph>
         <Paragraph>VIDEO</Paragraph>
       </Content>
       <PostContainer>
 
         <Posts>
-        {active && data.map((item,i)=>{
+        {typeof data.items==='object' &&  data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
@@ -55,7 +50,7 @@ const Recepies = ({state,actions}) => {
             
                     if(i===0){
                      return ( <Children key={i}  style={{width:'550px'}} >                                            
-                           <Image src={attachment['source_url']} style={{width:'550px'}}/>
+                           <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -67,7 +62,7 @@ const Recepies = ({state,actions}) => {
                         </Children>)
                    }else if(i===1){
                        return ( <Children key={i} style={{width:'550px'}}>                                                
-                        <Image src='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png' style={{width:'550px'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'550px'}}/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
@@ -79,7 +74,7 @@ const Recepies = ({state,actions}) => {
                    }
                    else if(i>=2 && i<=4){
                        return ( <Children key={i} style={{width:'370px'}} css={css`&:hover{text-decoration:underline;}`}>                                                
-                        <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'350px',transform:'scale(1)'}}/>
+                        <Image src={typeof attachment==='object' ? attachment['source_url']:''} style={{width:'350px',transform:'scale(1)'}}/>
                             <div style={{position:'relative',marginLeft:'10px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',color:'black'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>

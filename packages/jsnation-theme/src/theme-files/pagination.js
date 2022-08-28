@@ -24,9 +24,9 @@ const Pagination = ({state,actions}) => {
     const data=state.source.get(state.router.link);
     const news=state.source.get(state.router.link);
     for (let index = 0; index < data.totalPages; index++) {
-        console.log(data.link+"page/"+(index+1)+"/");
+        console.log(data.route+"page/"+(index+1)+"/");
         console.log(state.router.link)
-        page.push(<Link href={`${data.link}page/${index+1}`}><p style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content',marginLeft:'5px'}} css={css`&:hover{cursor:pointer;}`}>{index+1}</p></Link>)
+        page.push(<Link href={`${data.link}page/${index+1}` }><p style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content',marginLeft:'5px'}} css={css`&:hover{cursor:pointer;}`}>{index+1}</p></Link>)
     }
     console.log(scrollPosition)
     const nexthandler=()=>{
@@ -42,7 +42,7 @@ const Pagination = ({state,actions}) => {
             <Posts>
             {typeof data.items && data.items.map((item,i)=>{
                 const post=state.source[item.type][item.id];
-                const attachment=state.source.attachment[post.featured_media ? 1:0];
+                let attachment=state.source.attachment[typeof post.featured_media==='number' ? post.featured_media:0];
                 const author=state.source.author[post.author];
                 const category=state.source.category[post.categories[0]];
                 const link=decodeURI(item.link).split('/');

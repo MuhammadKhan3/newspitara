@@ -8,18 +8,32 @@ import RelatedNews from './RelatedNew';
 const PostDetail = ({state,libraries}) => {
 
     const Html2React = libraries.html2react.Component;
-    const home=state.source.get('/');
+    const posts=state.source.get('/category/world');
+
+    
+    // console.log(typeof post)
+    // if(typeof post.featured_media==='undefined'){
+    //   attachment['source_url']='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png';
+    // }else{
+    //   attachment=state.source.attachment[post.featured_media];
+    // }
+    console.log('kkdk')    
     const link=state.router.link.split('/');
+    console.log();
+    if(typeof posts.items==='object' && typeof link[2]==='string'){   
+    console.log(link[2])
     const post=state.source["post"][link[2]];
-    const attachment=state.source.attachment[post.featured_media];
+    const attachment=state.source.attachment[0];
     const author=state.source.author[post.author]
     const category=state.source.category[post.categories[0]];
     const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
-    
   return (<>
+
+  
+
   <MainContainer>
-  <Container>
-    <Title>{post.title.rendered}</Title>
+   <Container>
+    <Title>{typeof post.title==='object' ? post.title.rendered:''}</Title>
     <DateContent>
         <p style={{fontSize:'11px',backgroundColor:'black',padding:'5px',color:'white',display:'inline'}}>{category.name}</p>
         <p style={{display:'inline',fontSize:'12px',marginLeft:'5px',color:'lightgray'}}>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -60,14 +74,14 @@ const PostDetail = ({state,libraries}) => {
     </AdsContainer> 
     <ContentContainer>
         <ContentContainerOne>
-          <Attachment src={attachment ? attachment['source_url']: ''} style={{display:'block'}} width='750px'/>
+          <Attachment src={typeof attachment==='object' ? attachment['source_url']: 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{display:'block'}} width='750px'/>
           <AdsContainer>
             <Text>-Advertisement-</Text>
             <img width='740px' src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'/>
            
           </AdsContainer>
-          <div style={{width:'780px',marginTop:'10px'}}>
-             <Html2React html={post.content.rendered} />
+            <div style={{width:'780px',marginTop:'10px'}}>
+             <Html2React html={post.excerpt.rendered} />
             </div>
             <div style={{marginTop:'40px'}}>
               <Text>-Advertisement-</Text>
@@ -76,7 +90,7 @@ const PostDetail = ({state,libraries}) => {
             <div style={{marginTop:'10px',marginLeft:'300px'}}>
               <p style={{fontWeight:'bold',fontSize:'14px'}}>Tags
 
-                {post.tags.map((id)=>{
+                {typeof post.tags==='object' && post.tags.map((id)=>{
                 
                 return  <span style={{fontsize:'',fontWeight:'normal',backgroundColor:'#F0F0F0',padding:'10px',marginLeft:'10px'}}> {state.source['tag'][id].name}</span>
                 })}
@@ -118,7 +132,7 @@ const PostDetail = ({state,libraries}) => {
            <ContentContainerTwo>
               <h1 style={{fontSize:'16px',borderLeft:'3px solid #4169E1',paddingLeft:'5px'}}>Latest News</h1>
              <RightPost  >
-                {home && home.items.map((item,i)=>{
+                {typeof posts.items==='object' && posts.items.map((item,i)=>{
                     const post=state.source[item.type][item.id];
                     const attachment=state.source.attachment[post.featured_media];
                     const author=state.source.author[post.author];
@@ -129,7 +143,7 @@ const PostDetail = ({state,libraries}) => {
                     return(<div >
                         {i===1 ?
                                 ( <Children key={i} style={{width:'270px',height:'310px',overflow:'hidden',marginTop:'10px'}} >                                                
-                                <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
+                                <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
                                     <div style={{position:'relative',top:'30px',color:'white'}}>
                                         <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
                                         <Link href={post.link+post.id}>
@@ -142,24 +156,24 @@ const PostDetail = ({state,libraries}) => {
                                  ? <>
                                          <ImageContainer>
                                           <Advert>- Advertisement -</Advert>
-                                          <ImageOne src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz2.png'/>
+                                          <ImageOne src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
                                           </ImageContainer>
                                           <Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
-                                          <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                                          <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
                                           <div style={{position:'relative',float:'left',left:'20px'}}>
                                           <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
                                           <Link href={post.link+post.id}>
-                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{link}</h1>
                                           </Link>
                                           <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div>                         
                             </Children>
                                 </>:i>2 && i<=4 && (<Children key={i} style={{width:'350px',height:'120px',overflow:'hidden'}} >                                                
-                               <Image src={`${attachment ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
+                               <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'75px',height: '65px',objectFit: 'fill',transform: 'scale(1.4)',float:'left'}}/>
                                 <div style={{position:'relative',float:'left',left:'20px'}}>
                                     <p style={{fontSize:'0.6rem',color:'#4169E1'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>
-                                        <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{content}</h1>
+                                        <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'11px',width:'10rem',textTransform: 'capitalize'}}>{link}</h1>
                                     </Link>
                                     <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>                         
@@ -186,6 +200,10 @@ const PostDetail = ({state,libraries}) => {
     <Footer top={'220px'}/>
   </MainContainer>
   </>)
+}
+else{
+  return ;
+}
 }
 export default connect(PostDetail)
 
