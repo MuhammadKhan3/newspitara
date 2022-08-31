@@ -23,6 +23,7 @@
     "@frontity/mars-theme": "./packages/mars-theme",
     "@frontity/tiny-router": "^1.4.4",
     "@frontity/wp-source": "^1.11.7",
+    "axios": "^0.27.2",
     "frontity": "^1.17.2",
     "jsnation-theme": "file:packages/jsnation-theme"
   }

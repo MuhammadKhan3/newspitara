@@ -49,7 +49,7 @@ return (<>
                             <Content>
                                 <Category>{category.name}</Category>
                                 <Link href={post.link+post.id}>
-                                  <Title className='links'>{content}</Title>
+                                  <Title className='links'>{link}</Title>
                                 </Link>
                                 <Span>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</Span>
                             </Content>
@@ -77,7 +77,7 @@ return (<>
                             <Content>
                                 <Category>{category.name}</Category>
                                 <Link href={post.link+post.id}>
-                                  <Title className='links'>{content}</Title>
+                                  <Title className='links'>{link}</Title>
                                 </Link>
                                 <Span>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</Span>
                             </Content>
@@ -153,7 +153,7 @@ const Container=styled.div`
 background-color:#F3F2F1;
 position:relative;
 width:100%;
-height:500px;
+height:400px;
 z-index:888;
 `
 const InnerContainer=styled.div`
@@ -178,8 +178,8 @@ left:930px;
 `
 
 const Image=styled.img`
-width:120px;
-height:100px;
+width:100px;
+height:70px;
 `
 
 const GridContainer=styled.div`
@@ -246,7 +246,7 @@ width:100%;
 height:80px;
 background-color:royalblue;
 position:relative;
-top:434px;
+top:334px;
 `
 const Logo=styled.img`
 width:250px;

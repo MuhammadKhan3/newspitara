@@ -3,8 +3,10 @@ import { connect,styled,css,Global } from 'frontity';
 import Link from './link';
 import Header from './header';
 import { device } from './device';
+const axios = require("axios");
 
 const HeaderText = () => {
+  const [weather,setweather]=React.useState({});
       //  Date
   let date=new Date();
   date=date.toLocaleString('en-US', {timeZone: 'Europe/London',
@@ -14,6 +16,21 @@ const HeaderText = () => {
   year:'numeric'
   });
   // close Date
+
+
+  const options = {
+    method: 'POST',
+    url: 'https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=98f866d20b9bc5e26125259afcb625c2',    
+  };
+
+  React.useEffect(()=>{
+    axios.request(options).then(function (response) {
+      setweather(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  },[])
+
   return (<>
   
   <Global styles={css`
@@ -83,7 +100,10 @@ const HeaderText = () => {
               fontSize:'0.6rem',
               marginLeft:'12.5rem'
             }}>
-              icon 18.7,London
+              {console.log()}
+              <img style={{position:'relative',top:'10px'}} src={typeof weather.weather==='object' && `http://openweathermap.org/img/w/${weather.weather['0'].icon}.png`} width="25" height="25"/> 
+              {typeof weather.main ==='object' && Math.ceil(weather.main['temp']-273.15)}
+              ,London
             </span>
             <span style={{
                   fontSize:'0.6rem',
@@ -125,30 +145,35 @@ background-color:white;
 `
 const ChildOne=styled.div`
 background-color:white;
+width:100%
+height:50px;
 display:flex;
 flex-direction:row;
+flex-basis:13rem;
+@media ${device.mobile} {
+  display:none;
+}
 `
 const ChildOneInner=styled.div`
+float:left;
 margin-top:6px;
-display:'inline';
-float:left
+width:30%;
 `
 const ChildTwoInner=styled.div`
-position:relative;
-left:800px;
-width:200px;
+// position:relative;
+margin-left:50rem;
+width:20%;
+// margin-top:80px;
+
 @media ${device.laptop} {
-  left:calc(100% - 400px)
+  // margin-left:calc(100% - 400px);
 }
 `
 const ChildTwo=styled.div`
 background:#FAFAFA;
 display:block;
-width:99.6rem;
-max-width:108rem;
+width:100%;
+// max-width:auto;
 margin:0 auto;
 height:60px;
-
-
-
 `

@@ -8,19 +8,10 @@ import RelatedNews from './RelatedNew';
 const PostDetail = ({state,libraries}) => {
 
     const Html2React = libraries.html2react.Component;
-    const posts=state.source.get('/category/world');
-
-    
-    // console.log(typeof post)
-    // if(typeof post.featured_media==='undefined'){
-    //   attachment['source_url']='https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png';
-    // }else{
-    //   attachment=state.source.attachment[post.featured_media];
-    // }
-    console.log('kkdk')    
+    const posts=state.source.get('/category/world'); 
     const link=state.router.link.split('/');
-    console.log();
-    if(typeof posts.items==='object' && typeof link[2]==='string'){   
+    
+if(typeof posts.items==='object' && typeof link[2]==='string'){   
     console.log(link[2])
     const post=state.source["post"][link[2]];
     const attachment=state.source.attachment[0];
@@ -28,9 +19,6 @@ const PostDetail = ({state,libraries}) => {
     const category=state.source.category[post.categories[0]];
     const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
   return (<>
-
-  
-
   <MainContainer>
    <Container>
     <Title>{typeof post.title==='object' ? post.title.rendered:''}</Title>

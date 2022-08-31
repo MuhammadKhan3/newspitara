@@ -47,7 +47,9 @@ const Header = ({actions,state}) => {
         // await actions.source.fetch(`${/category/news/recipes}?per_page${4}`);
         // await actions.source.fetch(`${/category/news/video}?per_page${4}`);
         // await actions.source.fetch(`${/category/news/travel}?per_page${4}`);
+        
       },[])
+
       const searchhandler=()=>{
         setsearch(!search);
       }
@@ -90,7 +92,14 @@ const Header = ({actions,state}) => {
      }
      `}/>
     <Container> 
-    <img src='   https://www.newspitara.com/wp-content/uploads/2021/11/72579877_116985066377732_1378794148236099584_n-1-e1637308004260.jpg' className='logo'/>
+    <Hamburger>
+        <svg viewBox="0 0 100 80" width="40" height="40">
+              <rect width="100" height="20"></rect>
+              <rect y="30" width="100" height="20"></rect>
+              <rect y="60" width="100" height="20"></rect>
+        </svg>     
+    </Hamburger>   
+      <img src='   https://www.newspitara.com/wp-content/uploads/2021/11/72579877_116985066377732_1378794148236099584_n-1-e1637308004260.jpg' className='logo'/>
         <Menu>        
             {menu.map((m,i)=>{
                 return <Link  key={i} href={m[1]}><List onMouseEnter={()=>{setmenu(m[0])}} className={state.router.link===m[1] ? 'active':''}> {m[0]}</List></Link>
@@ -126,21 +135,25 @@ const Header = ({actions,state}) => {
 }
 export default connect(Header);
 
+
+const Hamburger=styled.div`
+`
 const Container=styled.div`
 position:relative;
 left:30px;
 top:20px;
-width:1500px;
-
-@media ${device.laptop} {
-  width:calc(1500px -600px); 
-}
+width:100%;
+max-width:990px;
 `
 
 const Menu=styled.ul`
 display:flex;
 flex-direction:row;
 list-style-type:none;
+width:50%;
+@media ${device.mobile} {
+  display:none;
+}
 `
 const List=styled.li`
 margin-left:0.625rem;
@@ -157,7 +170,7 @@ cursor:pointer;}
 }
 `
 const More=styled.li`
-margin-left:20px;
+margin-left:1.rem;
 font-weight: 800;
 font-size:0.8125rem;
 padding:0.3125rem;
@@ -174,7 +187,7 @@ const Search=styled.div`
 // position:relative;
 // top:10px;
 // display:block
-margin-left:15.625rem;
+// margin-left:15.625rem;
 @media ${device.laptop} {
   margin-left:(100% - 100px);
 }

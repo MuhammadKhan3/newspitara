@@ -39,7 +39,7 @@ const VideoPage = ({state,actions}) => {
       <PostContainer>
 
         <Posts>
-        {typeof data.items && data.items.map((item,i)=>{
+        {typeof data.items==='object' && data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];

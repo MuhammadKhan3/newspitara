@@ -14,7 +14,7 @@ import UpFun from './scrollUp'
 const Home = () => {
   return (
     <Container>
-        <UpFun/>
+        {/* <UpFun/>
         <TextSlider/>         
         <CoronaBar/>
         <HomeList/>
@@ -24,7 +24,7 @@ const Home = () => {
         <Sports/>
         <Ads top={'460px'}/>
         <VideoList top={'3700px'}/>
-        <Footer top={'1300px'}/>    
+        <Footer top={'1300px'}/>     */}
     </Container>
   )
 }
@@ -32,6 +32,5 @@ const Home = () => {
 export default connect(Home)
 
 const Container=styled.div`
-// width:100%;
 width:100%;
 `

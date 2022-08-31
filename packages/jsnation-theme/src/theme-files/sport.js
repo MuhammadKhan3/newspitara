@@ -54,9 +54,7 @@ const Sports= ({actions,state}) => {
                         else if(i>=1 && i<=2){
                                 return(<>
                                 <Children key={i}  css={css`width:160px; `}>
-
-
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:160px;`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:140px; height:100px;`}/>
                                 <p className='category' style={{color:'green'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
                                 <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{link}</h1>
@@ -116,7 +114,7 @@ const Sports= ({actions,state}) => {
                                     return(<>
                                     <Children key={i}  css={css`width:160px; `}>
 
-                                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:160px;`}/>
+                                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:140px; height:100px;`}/>
                                     <p className='category' style={{color:'green'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>
                                     <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'160px'}}>{link}</h1>

@@ -55,7 +55,7 @@ const Search = ({state,actions}) => {
                  if(i>=0 && i<9){
                     return ( <Children key={i} className='header'>
                         {/* ads https://www.newspitara.com/wp-content/uploads/2021/11/corhaz3.png */}
-                                                    <img src={attachment ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} width='300px' height='220px'></img>
+                            <img src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} width='300px' height='220px'></img>
                             <div className='content1'>
                                 <p style={{fontSize:'11px'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>

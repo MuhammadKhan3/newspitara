@@ -32,6 +32,7 @@ const HomeList = ({actions,state}) => {
     }
     .image-2{
         width:320px;
+        height:200px
     }
     .header{
         grid-column-start:1;
