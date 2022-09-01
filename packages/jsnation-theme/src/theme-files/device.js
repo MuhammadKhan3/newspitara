@@ -12,7 +12,7 @@ const size = {
     mobileS: `(min-width: ${size.mobileS})`,
     mobileM: `(min-width: ${size.mobileM})`,
     mobileL: `(min-width: ${size.mobileL})`,
-    mobile: `(min-width: ${size.mobileM}) and (max-width: ${size.mobile})`,
+    mobile: `(min-width: ${size.mobileS}) and (max-width: ${size.mobile})`,
     tablet: `(min-width: ${size.tablet})`,
     laptop: `(min-width: ${size.laptop}) and (max-width: ${size.laptopL})`,
     laptopL: ` (min-width: ${size.laptopL})`,

@@ -7,6 +7,7 @@ const axios = require("axios");
 
 const HeaderText = () => {
   const [weather,setweather]=React.useState({});
+  const [hamburger,sethamburger]=React.useState(false);
       //  Date
   let date=new Date();
   date=date.toLocaleString('en-US', {timeZone: 'Europe/London',
@@ -82,6 +83,9 @@ const HeaderText = () => {
          left: 50px;
         //  margin-left:120px;
         //  margin-left:15px !important;
+        @media ${device.mobile}{
+          display:none;
+        }
        }
        .sign:hover{
         width:140px;
@@ -94,13 +98,19 @@ const HeaderText = () => {
         }
       `}/>
       <Container>
+      <Hamburger onClick={()=>{sethamburger(!hamburger)}}>
+        <svg viewBox="0 0 100 80" width="40" height="40">
+              <rect width="100" height="20"></rect>
+              <rect y="30" width="100" height="20"></rect>
+              <rect y="60" width="100" height="20"></rect>
+        </svg>     
+      </Hamburger>   
         <ChildOne>
            <ChildOneInner>
             <span style={{
               fontSize:'0.6rem',
               marginLeft:'12.5rem'
             }}>
-              {console.log()}
               <img style={{position:'relative',top:'10px'}} src={typeof weather.weather==='object' && `http://openweathermap.org/img/w/${weather.weather['0'].icon}.png`} width="25" height="25"/> 
               {typeof weather.main ==='object' && Math.ceil(weather.main['temp']-273.15)}
               ,London
@@ -120,17 +130,16 @@ const HeaderText = () => {
                {/* Twitter Icon*/}
                <svg xmlns="http://www.w3.org/2000/svg" className='icon-general bi bi-twitter'  fill="currentColor" viewBox="0 0 16 16"> <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/> </svg>
                {/* Youtube Icon*/}
-               <svg xmlns="http://www.w3.org/2000/svg" className='icon-general bi bi-youtube' fill="currentColor"  viewBox="0 0 16 16"> <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/> </svg>
-             
+               <svg xmlns="http://www.w3.org/2000/svg" className='icon-general bi bi-youtube' fill="currentColor"  viewBox="0 0 16 16"> <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/></svg>             
                <div className='sign'>
-                  <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className='icon-person bi bi-person-fill'   viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>                  <p style={{fontSize:'11px',display:'inline',position:'relative',top:'3px'}}>Signin/ Join</p>
-                  
+                  <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className='icon-person bi bi-person-fill'   viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>                  
+                  <p style={{fontSize:'11px',display:'inline',position:'relative',top:'3px'}}>Signin/ Join</p>                  
                </div>
            </ChildTwoInner>
         </ChildOne>
         <br/>
         <ChildTwo>
-          <Header/>
+          <Header hamburger={hamburger} sethamburger={sethamburger}/>
         </ChildTwo>
       </Container>
     </>
@@ -139,9 +148,21 @@ const HeaderText = () => {
 
 export default connect(HeaderText)
 
+const Hamburger=styled.div`
+margin-top:10px;
+margin-left:20px;
+display:none;
+width:100px;
+@media ${device.mobile} {
+  display:inline;
+  float:left;
+}
+
+`
+
 const Container=styled.div`
 background-color:white;
-
+width:object-fit;
 `
 const ChildOne=styled.div`
 background-color:white;
@@ -150,25 +171,30 @@ height:50px;
 display:flex;
 flex-direction:row;
 flex-basis:13rem;
-@media ${device.mobile} {
-  display:none;
-}
+// @media ${device.mobile} {
+//   display:none;
+// }
 `
 const ChildOneInner=styled.div`
 float:left;
 margin-top:6px;
 width:30%;
-`
-const ChildTwoInner=styled.div`
-// position:relative;
-margin-left:50rem;
-width:20%;
-// margin-top:80px;
-
-@media ${device.laptop} {
-  // margin-left:calc(100% - 400px);
+@media ${device.mobile}{
+  display:none;
 }
 `
+const ChildTwoInner=styled.div`
+width:20%;
+margin-left:50rem;
+// position:relative;
+// margin-top:80px;
+
+@media ${device.mobile}{
+display:none;  
+}
+`
+
+
 const ChildTwo=styled.div`
 background:#FAFAFA;
 display:block;
@@ -176,4 +202,8 @@ width:100%;
 // max-width:auto;
 margin:0 auto;
 height:60px;
+@media ${device.mobile}{
+background:white;
+// width0%;
+}
 `

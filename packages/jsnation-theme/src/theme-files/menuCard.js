@@ -145,7 +145,7 @@ width:990px;
 height:300px;
 position:fixed;
 left:30rem;
-top:5.2rem;
+top:6.5rem;
 border:1px solid #D3D3D3;
 z-index:1000;
 display:flex;

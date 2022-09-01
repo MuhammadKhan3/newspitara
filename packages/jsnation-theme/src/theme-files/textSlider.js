@@ -112,7 +112,7 @@ flex-direction:row;
 width:80rem;
 max-width:50rem;
 @media ${device.laptop} {
-    left:calc(26.25rem - 12rem);
+    display:none;
 }
 `
 const Heading=styled.h1`
