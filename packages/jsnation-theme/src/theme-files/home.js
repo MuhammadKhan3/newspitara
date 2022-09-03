@@ -17,14 +17,14 @@ const Home = () => {
         <UpFun/>
         <TextSlider/>         
         <CoronaBar/>
-        <HomeList/>
+        <HomeList/> 
         <TechnologyList/>
         <TravelList/>
-        <Ads/>
+        <Ads  top={'100px'} mobileTop={'2400px'}/>
         <Sports/>
-        <Ads top={'460px'}/>
-        <VideoList top={'3700px'}/>
-        <Footer top={'1300px'}/>    
+        <Ads top={'480px'} mobileTop={'2500px'} />
+        <VideoList top={'3700px'} mobileTop={'4950px'}/>
+        {/* <Footer top={'1300px'}/>     */}
     </Container>
   )
 }

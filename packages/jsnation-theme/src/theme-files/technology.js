@@ -1,6 +1,7 @@
 import React from 'react'
 import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
+import { device } from './device';
 const TechnologyList = ({actions,state}) => {
     React.useEffect(()=>{
         actions.source.fetch('/category/tech')
@@ -9,13 +10,14 @@ const TechnologyList = ({actions,state}) => {
     console.log(data)
   return (<>
   <Global styles={css`
-    .content{
+    .content1{
         width:500px;
         position:absolute;
-        top:300px;
+        top:210px;
         color:white;
         font-family:Arial;
         margin-left:20px;
+        
     }
     .category{
         font-size:11px;
@@ -25,12 +27,18 @@ const TechnologyList = ({actions,state}) => {
         text-transform: capitalize;
         width:360px;
         color:white;
+        color:black;
+        fontWeight:normal;marginTop:10px;
+        fontSize:16px;
+        width:270px;
+        @media ${device.mobile}{
+            width:100%;
+            font-size:14px;
+            color:black;
+        }
     }
     .link:hover{
         cursor:pointer;
-    }
-    .author{
-        font-size:11px;
     }
     .image-2{
         width:320px;
@@ -122,8 +130,9 @@ height:auto;
 padding:10px;
 display:flex;
 flex-direction:row;
-
-
+@media ${device.mobile}{
+display:none;
+}
 `
 const InnerContainer=styled.div`
 margin-left:220px;
@@ -146,5 +155,8 @@ overflow:hidden;
 &:hover{
     transform:scale(1.1);
     cursor:pointer;
+}
+@media ${device.mobile}{
+    width:100%;
 }
 `

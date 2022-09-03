@@ -7,18 +7,35 @@ const CoronaBar = () => {
      .state{
         font-size:13px;
         color:black;
+        @media ${device.mobile}{
+          margin-left:calc(100%-30px);
+          max-width:100px;
+          font-size:0.6rem;        
+        }
      }
      .state1{
-
-        margin-left:56px;
+        margin-left:3.5rem;
         color:black; 
         font-size:15px;
+        @media ${device.mobile}{
+          margin-left:0.5rem;
 
+          max-width:100px;
+          font-size:0.6rem;        
+
+        }
      }
      .state2{
         font-size:15px;
         color:black;
-        margin-left:34px;        
+        margin-left:2.125rem;
+        @media ${device.mobile}{
+          margin-left:1rem;
+          width:object-fit;
+          max-width:90px;
+          font-size:0.6rem;        
+
+        }        
      }
     `}
     />
@@ -26,15 +43,15 @@ const CoronaBar = () => {
         <Heading>India <span style={{fontWeight:'500',fontSize:'0.81rem'}}>COVID-19 Statistics</span></Heading>
         <InnerContainer>
             <Children>
-              <p>44,339,429</p>
+              <p style={{width:'50%'}}>44,339,429</p>
               <p className='state1'>CONFIRMED CASES</p>
             </Children>
             <Children>
-              <p>527,332</p> 
+              <p style={{width:'50%'}}>527,332</p> 
               <p className='state2'>TOTAL DEATHS</p>
             </Children>
             <Children>
-              <p>99,879</p> 
+              <p style={{width:'50%'}}>99,879</p> 
               <p className='state'>TOTAL ACTIVE CASES</p>
             </Children>
         </InnerContainer>
@@ -51,15 +68,13 @@ top:4.06rem;
 left:14.37rem;
 font-size:0.8rem;
 width:100%;
+display:block;
 max-width:74.37rem;
 font-size:0.6rem;
-
-@media ${device.laptop} {
-  height:100%;
-  display:inline-block;
-  font-size:0.2rem;
-  // margin-left:30px;
-  width: calc(100% - 300px);
+@media ${device.mobile} {
+  width:97%;
+  top:10rem;
+  left:1rem;
 }
   
 `
@@ -68,17 +83,16 @@ position:absolute;
 top:1.5rem;
 left:15.625rem;
 font-weight:bold;
-@media ${device.laptop} {
-  position:relative;
+@media ${device.mobile} {
+  left:1rem;
+  max-width:100px;
   display:inline;
-  font-size:0.4rem;
-  left: calc(250px - 200px);
 }
 `
 const InnerContainer=styled.div`
 position:relative;
 left:40.81rem;
-width:300px;
+width:500px;
 color:#4169E1;
 display:grid;
 grid-template-columns:11.875rem 11.875rem  11.875rem;
@@ -87,9 +101,21 @@ box-sizing:border-box;
 font-family:Calibri;
 font-weight:200;
 font-size:2.375rem;
+@media ${device.mobile}{
+  position:absolute;
+  grid-template-columns:6rem 6rem 6rem;
+  left: 8.4rem;
+  width:150px;
+  top:1rem;
+}
 `
 
 const Children=styled.div`
 margin-left:1rem;
 width:11.87rem;
+@media ${device.mobile}{
+margin-left:0.2rem;
+font-size:20px;
+width:80%;
+}
 `

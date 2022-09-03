@@ -190,7 +190,7 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
   </>)
 }
 else{
-  return ;
+  return 1;
 }
 }
 export default connect(PostDetail)

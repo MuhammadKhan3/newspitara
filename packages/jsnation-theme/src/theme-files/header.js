@@ -129,6 +129,9 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
        padding:5px;
        box-shadow: 0px 2px 8px #f5f5f5;
        border-bottom:1px solid white;
+       @media ${device.mobile}{
+        display:none;
+       }
      }
      .search{
        width:100px;

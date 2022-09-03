@@ -58,6 +58,8 @@ const Root = ({state}) => {
           {data.route==='/category/arts/' && <ArtPage when={data.isCategory}/>}
           {data.route==='/category/health/' && <HealthPage when={data.isCategory}/>}
           {data.route==='/category/news/video/' && <VideoPage when={data.isReady}/>}
+          {data.route==='/menu' && <VideoPage when={data.isReady}/>}
+
           <Search when={data.isSearch}/>
           <Post when={data.isReady}/>
 

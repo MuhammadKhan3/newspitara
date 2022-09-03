@@ -1,12 +1,13 @@
 import React from 'react'
 import { Global,styled,css,connect } from 'frontity'
 import Link from './link';
+import { device } from './device';
 const HomeList = ({actions,state}) => {
     actions.source.fetch('/')
     const data=state.source.get('/');
 
   return (<>
-    <Global styles={css`
+    <Global styles={`
     .content1{
         width:500px;
         position:absolute;
@@ -14,6 +15,10 @@ const HomeList = ({actions,state}) => {
         color:white;
         font-family:Arial;
         margin-left:20px;
+        
+    }
+    .child1{
+
     }
     .category{
         font-size:11px;
@@ -23,6 +28,15 @@ const HomeList = ({actions,state}) => {
         text-transform: capitalize;
         width:360px;
         color:white;
+        color:black;
+        fontWeight:normal;marginTop:10px;
+        fontSize:16px;
+        width:270px;
+        @media ${device.mobile}{
+            width:100%;
+            font-size:14px;
+            color:black;
+        }
     }
     .link:hover{
         cursor:pointer;
@@ -32,17 +46,64 @@ const HomeList = ({actions,state}) => {
     }
     .image-2{
         width:320px;
-        height:200px
+        height:20;
+        @media ${device.mobile}{
+            height:80%;
+            width:100%;
+        }
     }
-    .header{
+    .image3{
+        height:200px;
+        width:300px;
+        @media ${device.mobile}{
+            width:40%;
+            height:100%;
+            float:left;
+        }
+    }
+    .header1{
         grid-column-start:1;
         grid-column-end:3;
+        @media ${device.mobile}{
+            width:100%;
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 3;    
+        }
+    }
+    .child2{
+        @media ${device.mobile}{
+            width:100%;
+            height:300px;
+            margin:20px;
+        }
     }
     .advertisement{
         grid-column-start:1;
         grid-column-end:5;
         margin-left:50px;
         margin-top:30px;
+        @media ${device.mobile}{
+            grid-column-start:1;
+            grid-column-end:3;
+            margin-left:calc(50px - 30px);
+        }
+    }
+    .child4{
+        @media ${device.mobile}{
+            margin-left:20px;
+            grid-column-start:1;
+            grid-column-end:3;
+        }
+    }
+    .child3-content{
+        @media ${device.mobile}{
+            margin-left:10px;
+            margin-top:40px;
+            width:30%;
+            float:left;
+        }
     }
     `}/>
     <Container>
@@ -52,12 +113,10 @@ const HomeList = ({actions,state}) => {
                  const author=state.source.author[post.author]
                  const category=state.source.category[post.categories[0]];
                  const link=decodeURI(item.link).split('/');
-                 const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
-                 console.log('p.',link[1])
-                 console.log(post)
+                 const content=post.content.rendered.split('<p>')[1].split('</p>')[0];
+
                  if(i===0){
-                    return ( <Children key={i} className='header'>
-                        {console.log('attac',typeof attachment)}
+                    return ( <Children key={i} className='header1 child1'>
                             <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}></Image>
                             <div className='content1'>
                                 <p className='category'>{category.name}</p>
@@ -68,47 +127,50 @@ const HomeList = ({actions,state}) => {
                             </div> 
                         
                         </Children>)
-                 }else if(i>=1 && i<=2){
+                 }
+                 else if(i>=1 && i<=2){
                     return(<>
-                        {console.log('attac',typeof attachment)}
-
-                    <Children key={i} >
+                    <Children key={i} className='child2' >
                         <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
                         <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                        <Link href={post.link+post.id}>
+                        <Link href={post.link+post.id} color='black'>
                            <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
                         </Link>
                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                     </Children></>)
                  }
                  else if(i===4){
-                    {console.log('attac',typeof attachment)}
-
                     return(<>
                         <Children key={item.id} className='advertisement'>
-                         <p style={{fontSize:'12px',marginLeft:'400px'}}>-Advertisement-</p>
-                         <img src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg' style={{width:'1000px'}}/>
+                         <center>
+                            <p style={{fontSize:'12px'}}>-Advertisement-</p>
+                          </center>
+                         <img src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg' style={{width:'100%'}}/>
                         </Children>
-                        <Children key={i} >
-                            <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
-                            <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                            <Link href={post.link+post.id}>
-                             <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
-                            </Link>
-                            <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                        <Children key={i} className='child4'>
+                            <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image3'/>
+                            <div className='child3-content'>
+                                <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
+                                <Link href={post.link+post.id} color='black'>
+                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
+                                </Link>
+                                <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                            </div>
                         </Children>
                     </>)
                  }
                   else if(i>4 && i<=7){
                     {console.log('attac',typeof attachment)}
 
-                     return(<Children key={i} >
-                         <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
-                         <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                         <Link href={post.link+post.id}>
-                            <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
-                         </Link>
-                         <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                     return(<Children key={i} className='child4' >
+                         <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image3'/>
+                         <div className='child3-content'>
+                            <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
+                            <Link href={post.link+post.id} >
+                                <h1 className='link'>{link}</h1>
+                            </Link>
+                            <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                        </div>
                      </Children>)
                 }
                 else{
@@ -134,6 +196,14 @@ display:grid;
 grid-template-columns:auto auto auto auto;
 grid-template-rows:auto auto auto;
 grid-gap:15px;
+@media ${device.mobile}{
+position:absolute;
+grid-template-columns:auto auto;
+grid-template-rows:auto auto auto auto;
+left:0px;
+top:22rem;
+width:100%;
+}
 `
 const Children=styled.div`
 overflow-wrap: break-word;
@@ -147,5 +217,8 @@ overflow:hidden;
 &:hover{
     transform:scale(1.1);
     cursor:pointer;
+}
+@media ${device.mobile}{
+    width:100%;
 }
 `

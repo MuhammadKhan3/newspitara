@@ -111,7 +111,7 @@ display:flex;
 flex-direction:row;
 width:80rem;
 max-width:50rem;
-@media ${device.laptop} {
+@media ${device.mobile} {
     display:none;
 }
 `
