@@ -19,12 +19,12 @@ const Home = () => {
         <CoronaBar/>
         <HomeList/> 
         <TechnologyList/>
-        <TravelList/>
+        {/* <TravelList/>
         <Ads  top={'100px'} mobileTop={'2400px'}/>
         <Sports/>
         <Ads top={'480px'} mobileTop={'2500px'} />
         <VideoList top={'3700px'} mobileTop={'4950px'}/>
-        {/* <Footer top={'1300px'}/>     */}
+        <Footer top={'1300px'} mobileTop={'3280px'}/>     */}
     </Container>
   )
 }

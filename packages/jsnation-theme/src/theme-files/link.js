@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'frontity'
 
-const Link=({href,actions,children,})=>{
+const Link=({href,actions,children,width})=>{
 // console.log(props)
 return (
 <div style={{display:'inline'}}>
