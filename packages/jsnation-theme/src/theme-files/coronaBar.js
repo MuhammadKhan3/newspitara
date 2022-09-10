@@ -9,7 +9,8 @@ const CoronaBar = () => {
         color:black;
         @media ${device.mobile}{
           margin-left:calc(100%-30px);
-          max-width:100px;
+          max-width:40%;
+          width:100px;
           font-size:0.6rem;        
         }
      }
@@ -32,7 +33,7 @@ const CoronaBar = () => {
         @media ${device.mobile}{
           margin-left:1rem;
           width:object-fit;
-          max-width:90px;
+          max-width:100px;
           font-size:0.6rem;        
 
         }        
@@ -43,15 +44,15 @@ const CoronaBar = () => {
         <Heading>India <span style={{fontWeight:'500',fontSize:'0.81rem'}}>COVID-19 Statistics</span></Heading>
         <InnerContainer>
             <Children>
-              <p style={{width:'50%'}}>44,339,429</p>
+              <p style={{width:'50%'}} css={css`@media ${device.mobile}{font-size:13px;}`}>44,339,429</p>
               <p className='state1'>CONFIRMED CASES</p>
             </Children>
             <Children>
-              <p style={{width:'50%'}}>527,332</p> 
+              <p style={{width:'50%'}} css={css` @media ${device.mobile}{font-size:13px;}`}>527,332</p> 
               <p className='state2'>TOTAL DEATHS</p>
             </Children>
             <Children>
-              <p style={{width:'50%'}}>99,879</p> 
+              <p style={{width:'50%'}} css={css`@media ${device.mobile}{font-size:13px;}`}>99,879</p> 
               <p className='state'>TOTAL ACTIVE CASES</p>
             </Children>
         </InnerContainer>
@@ -69,10 +70,11 @@ left:14.37rem;
 font-size:0.8rem;
 width:100%;
 display:block;
+
 max-width:74.37rem;
 font-size:0.6rem;
 @media ${device.mobile} {
-  width:97%;
+  width:91%;
   top:10rem;
   left:1rem;
 }
@@ -103,7 +105,7 @@ font-weight:200;
 font-size:2.375rem;
 @media ${device.mobile}{
   position:absolute;
-  grid-template-columns:6rem 6rem 6rem;
+  grid-template-columns:4rem 4rem 4rem;
   left: 8.4rem;
   width:150px;
   top:1rem;
@@ -114,8 +116,8 @@ const Children=styled.div`
 margin-left:1rem;
 width:11.87rem;
 @media ${device.mobile}{
-margin-left:0.2rem;
+margin-left:0.1rem;
 font-size:20px;
-width:80%;
+width:60%;
 }
 `

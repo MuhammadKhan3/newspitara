@@ -63,6 +63,7 @@ const VideoList= ({actions,state,top,mobileTop}) => {
                                                     margin-left:20px;
                                                     @media ${device.mobile}{
                                                         // top:410px;
+                                                    
                                                         // color:black;
                                                         position:relative;
                                                         top:0px;
@@ -79,12 +80,12 @@ const VideoList= ({actions,state,top,mobileTop}) => {
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px; display:flex;flex-direction:row;margin-top:8px;}`}>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px; display:flex;flex-direction:row;margin-top:8px; }`}>
                                 <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:180px; @media ${device.mobile}{width:40%;height:90%;}`}/>
-                                <div>
+                                <div css={css`@media ${device.mobile}{font-weight:bold,font-size:12px;margin-left:15px;}`}>
                                     <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>
-                                    <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'5px',fontSize:'12px',width:'200px'}}>{link}</h1>
+                                    <h1 className='link' css={css`color:black;marginTop:5px;fontSize:12px;width:200px;marginLeft:5px;`}>{link}</h1>
                                     </Link>
                                     <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>

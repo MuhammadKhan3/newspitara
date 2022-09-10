@@ -8,7 +8,7 @@ const Ads = ({top,height,mobileTop}) => {
     <Container css={css`top:${top ? top:'160px'}; @media ${device.mobile}{
       top:${mobileTop};
       left:10px;
-      width:100%;
+      width:90%;
       height:auto;
     }`}>
         <Text>-Advertisement-</Text>
@@ -26,6 +26,7 @@ width:600px;
 height:400px;
 position:relative;
 left:300px;
+
 
 `
 const Image=styled.img`

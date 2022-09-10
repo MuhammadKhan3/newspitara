@@ -35,7 +35,7 @@ const HomeList = ({actions,state}) => {
         @media ${device.mobile}{
             width:100%;
             font-size:14px;
-            color:black;
+            color:white;
         }
     }
     .link:hover{
@@ -48,7 +48,7 @@ const HomeList = ({actions,state}) => {
         width:320px;
         height:20;
         @media ${device.mobile}{
-            height:80%;
+            height:40%;
             width:100%;
         }
     }
@@ -57,7 +57,7 @@ const HomeList = ({actions,state}) => {
         width:300px;
         @media ${device.mobile}{
             width:40%;
-            height:100%;
+            height:80%;
             float:left;
         }
     }
@@ -75,7 +75,7 @@ const HomeList = ({actions,state}) => {
     .child2{
         @media ${device.mobile}{
             width:100%;
-            height:300px;
+            height:320px;
             margin:20px;
         }
     }
@@ -120,8 +120,8 @@ const HomeList = ({actions,state}) => {
                             <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}></Image>
                             <div className='content1'>
                                 <p className='category'>{category.name}</p>
-                                <Link href={post.link+post.id}>
-                                  <h1 className='link'>{link}</h1>
+                                <Link href={post.link+post.id} color={'white'}>
+                                  <h1 className='link' style={{color:'white'}}>{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </div> 
@@ -132,6 +132,7 @@ const HomeList = ({actions,state}) => {
                     return(<>
                     <Children key={i} className='child2' >
                         <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
+
                         <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
                         <Link href={post.link+post.id} color='black'>
                            <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
@@ -145,7 +146,7 @@ const HomeList = ({actions,state}) => {
                          <center>
                             <p style={{fontSize:'12px'}}>-Advertisement-</p>
                           </center>
-                         <img src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg' style={{width:'100%'}}/>
+                         <img src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg' style={{width:'90%'}}/>
                         </Children>
                         <Children key={i} className='child4'>
                             <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image3'/>

@@ -8,6 +8,7 @@ import SearchBox from './searchBox'
 
 const Header = ({actions,state,hamburger,sethamburger}) => {
     const [mobilemenu,setmobilemenu]=React.useState(false);
+    const [searchlogo,setsearchlogo]=React.useState(false);
     const [menustate,setmenu]=React.useState('');
     const [search,setsearch]=React.useState(false);
     const menu=[
@@ -35,13 +36,13 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
           route:"/category/news/"
         },{
           link:"Recipes",
-          route:"/category/recipes/"
+          route:"/category/news/recipes/"
         },{
           link:"Travel",
-          route:"/category/travel/"
+          route:"/category/news/travel/"
         },{
           link:"Video",
-          route:"/category/vide/"
+          route:"/category/news/video/"
         },],
         [{
           link:"FASHION", 
@@ -63,6 +64,12 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
           link:"PHOTOGRAPHY", 
           route:"/category/photography/"
         }],
+        [{link:"More",route:"/"},
+        {link:"Recipes", route:"/category/news/recipes/"},
+        {link:"Travel", route:"/category/news/travel"},
+        {link:"Arts", route:"/category/arts/"},
+        {link:"Health",route: "/category/health/"},
+        {link:"Video", route:"/category/news/video"}],
       ]
       const [scrollPosition, setScrollPosition] = useState(0);
       const handleScroll = () => {
@@ -104,7 +111,10 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
         z-index:-9999;
         @media ${device.mobile}{
           margin-left:0rem;
-          width:object-fit;
+          width:80%;
+          position:absolute;
+          left:20px;
+          top:40px;
           min-width:80%;
         }
      }
@@ -114,10 +124,15 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
      }
      
      .searchLogo{
-        width:1.2rem;
+        width:1.8rem;
         &:hover{
             color:blue;
             cursor:pointer;
+        }
+        margin-top:10px;
+        @media ${device.mobile}{
+         margin-top:3px;
+        
         }
      }
      .header-2{
@@ -139,9 +154,8 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
       display:none;
       @media ${device.mobile}{
         display:inline;
+        width:10%;
       }
-
-
      }
      .menu-2{
       position:relative;
@@ -150,6 +164,7 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
      .mobile{
      }
      `}/>
+     <MainCotainer>
      <div className='mobile'>
       {hamburger && <HamburgerMenu  style={{float:'left'}}>
                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" className='icon-face' viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg> */}
@@ -176,14 +191,25 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
                   <MenuList>
                   {menus.map((m)=>{
                     return <> {m.map((sub,i)=>{
-                       return<> {i>=1 ?<>  {mobilemenu &&<Link href={sub.route}  color='white'> <List style={{marginLeft:'30px;',fontWeight:'normal',color:'white'}}> {sub.link}</List></Link>}</> :   <Lists style={{display:'inline'}} > {m.length>=2 ? <> <Link href={sub.route}   color='white'>{sub.link} </Link> {mobilemenu ? <svg onClick={()=>{setmobilemenu(!mobilemenu)}} style={{float:'right',display:'inline',color: "white"}}  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>    :   <svg onClick={()=>{setmobilemenu(!mobilemenu)}} style={{float:'right',display:'inline',color: "white"}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>     }  </> :
-                        <Link href={sub.route} color='white'>{sub.link}</Link>}</Lists>}  </>
+                       return<> {i>=1 ?
+                       <>  {mobilemenu===m[0].link &&<Link href={sub.route}  color='white'> 
+                       <List style={{marginLeft:'30px;',fontWeight:'normal',color:'white'}}> {sub.link}</List>
+                       </Link>}</> :   
+                       <Lists style={{display:'inline'}} > {m.length>=2 ? <> <Link href={sub.route}   color='white'>{sub.link} </Link> {mobilemenu ? 
+                       <svg onClick={()=>{setmobilemenu(m[0].link)}}
+                        style={{float:'right',display:'inline',color: "white"}}  
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"> 
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>    :   <svg onClick={()=>{setmobilemenu(!mobilemenu)}} style={{float:'right',display:'inline',color: "white"}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>     }  </> 
+                        :<Link href={sub.route} color='white'>{sub.link}</Link>}</Lists>}  </>
                     })}
                     </>
                   })}
                   </MenuList>
                </div>
      </HamburgerMenu>}
+     {searchlogo && <HamburgerMenu>
+      <input type='text'/>
+      </HamburgerMenu>}
       <div className='search'>            
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="searchLogo bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
       </div>
@@ -223,13 +249,16 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
     <MenuCard menus={menustate}  setmenu={setmenu}/>
     {menustate==='MORE' && <SubMenu setmenu={setmenu}/>}
     {search &&<SearchBox/>}
-
+    </MainCotainer>
+    
     </>)
 }
 export default connect(Header);
 
 
-
+const MainCotainer=styled.div`
+width:100%;
+`
 
 const HamburgerMenu=styled.div`
 background-image:   linear-gradient(
@@ -237,9 +266,8 @@ background-image:   linear-gradient(
   rgba(0,0, 255, 0.75)
 ),  url("https://www.newspitara.com/wp-content/uploads/2021/11/vbbbb.jpg");
 color:white;
-width:80%;
-min-width:100%;
-max-width:object-fit;
+width:100%;
+max-width:100%;
 height:100%;
 float:left;
 background-repeat: no-repeat;
@@ -277,6 +305,9 @@ left:30px;
 top:20px;
 width:100%;
 max-width:990px;
+@media ${device.mobile}{
+  width: 98%;
+}
 `
 
 const Menu=styled.ul`

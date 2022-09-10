@@ -162,7 +162,7 @@ width:100px;
 
 const Container=styled.div`
 background-color:white;
-width:object-fit;
+width:96%;
 `
 const ChildOne=styled.div`
 background-color:white;
@@ -198,12 +198,13 @@ display:none;
 const ChildTwo=styled.div`
 background:#FAFAFA;
 display:block;
-width:100%;
+width:1583px;
 // max-width:auto;
 margin:0 auto;
 height:60px;
 @media ${device.mobile}{
 background:white;
+width:93%;
 // width0%;
 }
 `
