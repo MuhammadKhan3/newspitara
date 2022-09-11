@@ -24,11 +24,11 @@ const Pagination = ({state,actions}) => {
     actions.source.fetch(state.router.link);
     const data=state.source.get(state.router.link);
     const news=state.source.get(state.router.link);
-    for (let index = 0; index < data.totalPages; index++) {
-        console.log(data.route+"page/"+(index+1)+"/");
-        console.log(state.router.link)
-        page.push(<Link href={`${data.link}page/${index+1}` }><p style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content',marginLeft:'5px'}} css={css`&:hover{cursor:pointer;}`}>{index+1}</p></Link>)
-    }
+    // for (let index = 0; index < data.totalPages; index++) {
+    //     console.log(data.route+"page/"+(index+1)+"/");
+    //     console.log(state.router.link)
+    //     page.push(<Link href={`${data.link}page/${index+1}` }><p style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content',marginLeft:'5px'}} css={css`&:hover{cursor:pointer;}`}>{index+1}</p></Link>)
+    // }
     console.log(scrollPosition)
     const nexthandler=()=>{
 
@@ -63,13 +63,21 @@ const Pagination = ({state,actions}) => {
             </Posts>
             <Paginate >
                 {data.previous &&
-                <svg onClick={previoushandler}  xmlns="http://www.w3.org/2000/svg" width="1rem" height="16" fill="currentColor" className="left bi bi-arrow-left-short" viewBox="0 0 16 16"> <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" fill="white"></path> </svg>
-                }            
-                {page}
-                {data.next &&
-                <svg onClick={nexthandler}  xmlns="http://www.w3.org/2000/svg" width="1rem" height="16" fill="currentColor" className="right bi bi-arrow-right-short" viewBox="0 0 16 16"> <path fillRule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" fill="white"></path> </svg>
+                  <svg onClick={()=>{actions.router.set(data.previous)}}  xmlns="http://www.w3.org/2000/svg" width="1rem" height="16" fill="currentColor" className="left bi bi-arrow-left-short" viewBox="0 0 16 16"> <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" fill="white"></path> </svg>
                 }
-                <p  css={css`margin-left:540px,font-size:11px,color:gray; @media ${device.mobile}{display:none;}`}>Page {data.page} of {data.totalPages}</p>
+                {/* {data.totalPages>data.page */}
+                <p  onClick={()=>{actions.router.set(`${data.route}page/1`)}} style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content'}} css={css`&:hover{cursor:pointer;}`}> 1</p>
+                {data.page>1 &&
+                <p  onClick={()=>{actions.router.set(`${data.route}page/1`)}} style={{padding:'5px',color:'white',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',backgroundColor:'#4169E1',width:'fit-content'}} css={css`&:hover{cursor:pointer;}`}> {data.page}</p>
+                }
+
+                {data.next &&
+                    <p  onClick={()=>{actions.router.set(data.next)}} style={{padding:'5px',color:'#4169E1',paddingLeft:'8px',paddingRight:'8px',border:'1px solid #4169E1',width:'fit-content'}} css={css`&:hover{cursor:pointer;}`}>{data.totalPages>page+1 ?data.page+1:''}</p>                
+                }
+                {data.next &&
+                <svg onClick={()=>{actions.router.set(data.next)}}  xmlns="http://www.w3.org/2000/svg" width="1rem" height="16" fill="currentColor" className="right bi bi-arrow-right-short" viewBox="0 0 16 16"> <path fillRule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" fill="white"></path> </svg>
+                }
+                <p  css={css`margin-left:540px;font-size:11px;color:gray; @media ${device.mobile}{display:none;}`}>Page {data.page} of {data.totalPages}</p>
             </Paginate>
         </PostContainer>
         <AdsContainer>

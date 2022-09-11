@@ -53,7 +53,7 @@ const RelatedNews= ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className='' css={css`@media ${device.mobile}{width:100%;}`}>
                                 
-                                    <Image src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`@media ${device.mobile}{float:left;}`}/>
+                                    <Image src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:270px;height:200px;@media ${device.mobile}{float:left;width:40%;}`}/>
 
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -63,28 +63,32 @@ const RelatedNews= ({actions,state}) => {
                                                     @media ${device.mobile}{
                                                         width:50%;
                                                         position:relative;
+                                                        top:0px;
+                                                        left:3px;
                                                     }
                                                     `}>
 
                                         <p className='category '>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black;`}>{link}</h1>
+                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black; @media ${device.mobile}{width:1000%;}`}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
                                 </Children>)
                         }
-                        // else if(i>=1 && i<=3){
-                        //         return(<>
-                        //         <Children key={i}  css={css`margin-left:20px;`}>
-                        //         <img  src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;`}/>
-                        //         <p className='category' style={{color:'#DB7093'}}>{category.name}</p>
-                        //         <Link href={post.link+post.id}>
-                        //         <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'12px',width:'200px'}}>{link}</h1>
-                        //         </Link>
-                        //         <p className='author'>{author ?author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
-                        //     </Children></>)
-                        // }
+                        else if(i>=1 && i<=3){
+                                return(<>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;width:100%;margin-top:10px;}`}>
+                                <img  src={typeof attachment==='object' ? attachment['source_url']:'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:200px;@media ${device.mobile}{width:40%; height:200px;float:left;}`}/>
+                                <div css={css`@media ${device.mobile}{float:left;margin-left:5px;}`}>
+                                    <p className='category' style={{color:'#DB7093'}}>{category.name}</p>
+                                    <Link href={post.link+post.id}>
+                                    <h1 className='link' css={css`color:black;font-weight:normal;margin-top:10px;font-size:12px;width:200px; @media ${device.mobile}{font-weight:bold;}`}>{link}</h1>
+                                    </Link>
+                                    <p className='author'>{author ?author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                </div>
+                            </Children></>)
+                        }
                         else{
                                 return;
                             }
@@ -107,7 +111,7 @@ width:1582px;
 height:auto;
 padding:10px;
 display:flex;
-top:100px;
+top:150px;
 flex-direction:row;
 @media ${device.mobile}{
     flex-direction:column;

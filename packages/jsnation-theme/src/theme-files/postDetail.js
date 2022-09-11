@@ -11,8 +11,8 @@ const PostDetail = ({state,libraries}) => {
     const Html2React = libraries.html2react.Component;
     const posts=state.source.get('/category/world'); 
     const link=state.router.link.split('/');
-    
-if(typeof posts.items==='object' && typeof link[2]==='string'){   
+   console.log(typeof posts.items==='object') 
+if(typeof link[2]==='string'){   
     console.log(link[2])
     const post=state.source["post"][link[2]];
     const attachment=state.source.attachment[0];
@@ -23,7 +23,7 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
 
   <MainContainer>
    <Container>
-    {/* <Title>{typeof post.title==='object' ? post.title.rendered:''}</Title> */}
+    <Title>{typeof post.title==='object' ? post.title.rendered:''}</Title>
     <DateContent>
         <p css={css`font-size:11px;background-color:black;padding:5px;color:white;display:inline; @media ${device.mobile}{width:fit-content;display:block;}`}>{category.name}</p>
         <p css={css`display:inline;font-size:12px;margin-left:5px;color:lightgray; `}>{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
@@ -34,7 +34,7 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
        <p style={{position:'relative',top:'7px',display:'inline',fontSize:'11px'}}>By <span style={{fontWeight:'bold'}}>{author ? author.name:''}</span></p>    
     </Content>
     <Share css={css` @media ${device.mobile}{left:0px;top:70px;width:100%;}`}>
-        <div  css={css`border:'1px  solid  #E0E0E0',display:inline;padding:10px;padding-left:20px;padding-right:20px;padding-top:18px;padding-bottom:5px; @media ${device.mobile}{display:none;}`}>
+        <div  css={css`border:1px  solid  #E0E0E0;display:inline;padding:10px;padding-left:20px;padding-right:20px;padding-top:18px;padding-bottom:5px; @media ${device.mobile}{display:none;}`}>
           <svg style={{display:'inline',borderRight:'1px  solid  #E0E0E0',paddingRight:'8px'}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
           <p style={{display:'inline',marginLeft:'8px',position:'relative',top:'-5px'}}>Share</p>
         </div>
@@ -57,9 +57,9 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
            <p style={{fontSize:'12px',display:'inline',marginLeft:'8px',position:'relative',top:'-5px',color:'white'}}>Twitter</p>
         </div>
     </Share>
-     <AdsContainer>
+        <AdsContainer>
             <Text>-Advertisement-</Text>
-            <AdImage src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'></AdImage>
+            <AdImage src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg' css={css`width:990px;height:80px;margin-left:40px;`}></AdImage>
            <AdImage1 src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz4.png'/>
         </AdsContainer> 
        <ContentContainer>
@@ -95,7 +95,7 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
                   <p style={{fontSize:'12px',marginTop:'8px'}}>https://www.newspitara.com</p>
                </div>
             </div>
-             <Share css={css`position:relative;top:100px;left:100px;@media ${device.mobile}{width:100%;display:inline;}`}>
+             <Share css={css`position:relative;top:100px;left:100px;@media ${device.mobile}{width:200px;}`}>
                 <div css={css`border:1px  solid  #E0E0E0;display:inline;padding:10px;padding-left:20px;padding-right:20px;padding-top:18px;padding-bottom:5px; @media ${device.mobile}{display:none;}`}>
                   <svg style={{display:'inline',borderRight:'1px  solid  #E0E0E0',paddingRight:'8px'}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16"> <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/> </svg>
                   <p style={{display:'inline',marginLeft:'8px',position:'relative',top:'-5px'}}>Share</p>
@@ -133,12 +133,12 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
                     console.log(post)
                     return(<div >
                         {i===1 ?
-                                ( <Children key={i} style={{width:'270px',height:'310px',overflow:'hidden',marginTop:'10px'}} >                                                
-                                <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} style={{width:'290px',height: '150px',objectFit: 'fill',transform: 'scale(1.4)'}}/>
-                                    <div style={{position:'relative',top:'30px',color:'white'}}>
+                                ( <Children key={i} css={css`width:270px;height:310px;overflow:hidden;margin-top:10px; @media ${device.mobile}{width:100%;}`} >                                                
+                                <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:290px;height: 150px;object-fit: fill;transform: scale(1.4); @media ${device.mobile}{width:40%; float:left;}`}/>
+                                    <div css={css`position:relative;top:30px;color:white; @media ${device.mobile}{left:30px;top:0px;width:50%;float:left;}`}>
                                         <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                            <h1 css={css`font-size:10px,&:hover{text-decoration:underline;}`} style={{color:'black',marginTop:'5px',fontSize:'15px',width:'20rem',textTransform: 'capitalize'}}>{link}</h1>
+                                            <h1  css={css`color:black;margin-top:5px;font-size:15px;width:20rem;text-transform: capitalize; font-size:10px,&:hover{text-decoration:underline;} @media ${device.mobile}{width:80%;}`}>{link}</h1>
                                         </Link>
                                         <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author ? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div>                         
@@ -178,18 +178,19 @@ if(typeof posts.items==='object' && typeof link[2]==='string'){
     </ContentContainer>
   </Container>
     <RelatedNews/>
-    {/* <div style={{position:'relative',top:'140px',marginLeft:'390px'}}>
-      <Text>-Advertisement-</Text>
-      <img width='940px' src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'/>
-    </div>
-    <div style={{position:'relative',top:'200px',left:'480px',width:'800px'}}>
+    <AdsContainer css={css`position:relative;top:140px;margin-left:390px; @media ${device.mobile}{margin-left:0px;}`}>
+            <Text>-Advertisement-</Text>
+            <AdImage src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'></AdImage>
+           <AdImage1 src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz4.png'/>
+    </AdsContainer>  
+    <div css={css`position:relative;top:200px;left:480px;width:800px; @media ${device.mobile}{left:10px;width:100%;}`}>
       <h1 style={{fontSize:'14px',fontWeight:'700'}}>LEAVE A REPLY</h1>
       <p style={{fontSize:'12px',fontWeight:'700',marginTop:'10px'}}>Logged in as {author ? author.name :''}. Log out?</p>
-      <textarea css={css`border:1px solid #E0E0E0;margin-top:10px`} rows="9" cols="90"></textarea>
+      <textarea css={css`border:1px solid #E0E0E0;margin-top:10px; width:600px;height:150px; @media ${device.mobile}{width:100%;}`} ></textarea>
       <Button >POST COMMENT</Button>
     </div>
-    <Footer top={'220px'}/> */}
   </MainContainer>
+  <Footer top={'220px'}/> 
   </>)
 }
 else{
@@ -338,6 +339,9 @@ grid-template-columns:auto;
 grid-template-rows:auto;
 width:400px;
 height:auto;
+@media ${device.mobile}{
+  width:100%;
+}
 `
 const Children=styled.div`
 
@@ -353,7 +357,7 @@ height:180px;
 `
 const Button=styled.p`
 display:block;
-marginTop:5px;
+margin-top:5px;
 background-color:black;
 color:white;
 paddingLeft:15px;
@@ -368,5 +372,8 @@ paddingTop:5px;
 background-color:#4169E1;
 cursor:pointer;
 border:none;
+}
+@media ${device.mobile}{
+  margin-top:10px;
 }
 `

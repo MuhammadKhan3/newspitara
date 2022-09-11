@@ -293,6 +293,7 @@ left:250px;
 }
 @media ${device.mobile}{
     left:40px;
+    width:40%;
 }
 `
 
@@ -301,11 +302,12 @@ position:absolute;
 left:990px;
 top:40px;
 @media ${device.mobile}{
-    left:320px;
+    left:60%;
+    width:auto;
 }
-@media ${device.mobileL}{
-    left:260px;
-}
+// @media ${device.mobileL}{
+//     left:260px;
+// }
 `
 const IconContainer=styled.div`
 display:flex;

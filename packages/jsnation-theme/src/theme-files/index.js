@@ -20,6 +20,8 @@ import PostDetail from './postDetail';
 import Post from './post';
 import Search from './search';
 const Root = ({state}) => {
+  const [hide,sethide]=React.useState(true);
+
   const data = state.source.get(state.router.link);
   console.log(data)
     return (
@@ -53,7 +55,8 @@ const Root = ({state}) => {
        `}
       />
       {/* <body style={{width:'100%',minHeight:'100vh',boxSizing:'border-box'}}> */}
-       <HeaderText/>
+       <HeaderText hide={hide} sethide={sethide}/>
+      {hide &&
       <Container>
         <Switch>
           {data.route==='/' &&<Home when={data.isHome}/>}
@@ -77,7 +80,7 @@ const Root = ({state}) => {
 
 
         </Switch>    
-      </Container> 
+      </Container>} 
       {/* </body>  */}
       </>
     );

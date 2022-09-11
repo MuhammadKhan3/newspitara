@@ -6,11 +6,15 @@ import MenuCard from './menuCard'
 import { device } from './device'
 import SearchBox from './searchBox'
 
-const Header = ({actions,state,hamburger,sethamburger}) => {
+const Header = ({actions,state,hide,sethide}) => {
     const [mobilemenu,setmobilemenu]=React.useState(false);
     const [searchlogo,setsearchlogo]=React.useState(false);
     const [menustate,setmenu]=React.useState('');
+    const [route,setroute]=React.useState('');
     const [search,setsearch]=React.useState(false);
+    const [posts,setpost]=React.useState([]);
+    const [hamburger,sethamburger]=React.useState(false);
+     
     const menu=[
         ["HOME", "/"],
         ["NEWS", "/category/news/"],
@@ -98,7 +102,18 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
       const searchhandler=()=>{
         setsearch(!search);
       }
-      console.log(scrollPosition)
+
+      const mobilesearchhandler=async (e)=>{
+        await actions.source.fetch(`/?s=${e.target.value}`)
+        let data=await state.source.get(`/?s=${e.target.value}`);
+        console.log(data.items)       
+        await data.items.forEach(item => {
+          setpost(c=>[...c,item]);      
+        });
+       setroute(`/?s=${e.target.value}`)
+         console.log(posts);
+      }
+      
   return (
     <>
     <Global styles={css`
@@ -129,7 +144,6 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
             color:blue;
             cursor:pointer;
         }
-        margin-top:10px;
         @media ${device.mobile}{
          margin-top:3px;
         
@@ -148,6 +162,21 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
         display:none;
        }
      }
+     .header-mobile-2{
+      position:fixed;
+      top:0;
+      left:0px;
+      background-color:white;
+      z-index:9999;
+      width:98.8rem;
+      display:none;
+      padding:5px;
+      box-shadow: 0px 2px 8px #f5f5f5;
+      border-bottom:1px solid white;
+      @media ${device.mobile}{
+        display:block;
+      }
+      }
      .search{
        width:100px;
       float:right;
@@ -161,10 +190,20 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
       position:relative;
       top:1.2rem;
      }
+     input:focus{
+      outline:none;
+     }
      .mobile{
      }
      `}/>
      <MainCotainer>
+     <HamburgerIcon onClick={()=>{sethamburger(!hamburger);sethide(!hide)}}>
+        <svg viewBox="0 0 100 80" width="40" height="40">
+              <rect width="100" height="20"></rect>
+              <rect y="30" width="100" height="20"></rect>
+              <rect y="60" width="100" height="20"></rect>
+        </svg>     
+      </HamburgerIcon>   
      <div className='mobile'>
       {hamburger && <HamburgerMenu  style={{float:'left'}}>
                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" className='icon-face' viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg> */}
@@ -183,7 +222,7 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
                       <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className='icon-person bi bi-person-fill'   viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>                  
                       <p style={{fontSize:'11px',display:'inline',position:'relative',top:'3px'}}>Signin/ Join</p>                  
                   </div> */}
-                  <div onClick={()=>{sethamburger(!hamburger)}} style={{float:'right',marginRight:'20px'}}>
+                  <div onClick={()=>{sethamburger(!hamburger);sethide(!hide);}} style={{float:'right',marginRight:'20px'}}>
                       <svg style={{color: 'white'}} xmlns="http://www.w3.org/2000/svg" width='24' height='24'  fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>
                   </div>
                </div>
@@ -207,13 +246,46 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
                   </MenuList>
                </div>
      </HamburgerMenu>}
-     {searchlogo && <HamburgerMenu>
-      <input type='text'/>
-      </HamburgerMenu>}
-      <div className='search'>            
+     {searchlogo && 
+     <HamburgerMenu css={css`display:none;@media ${device.mobile}{display:block;}`}>
+          <div onClick={()=>{setsearchlogo(!searchlogo);sethide(!hide)}} style={{float:'right',marginRight:'20px'}}>
+                          <svg style={{color: 'white'}} xmlns="http://www.w3.org/2000/svg" width='24' height='24'  fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" fill="white"></path> </svg>
+          </div>
+          <div css={css`margin-top:200px;color:white;font-size:15px; `}>
+            <p style={{marginLeft:'40%'}}>Search</p>
+            <input onChange={mobilesearchhandler} type='text' css={css`padding-bottom:10px;text-align: center;width:90%;margin-left:10px;color:white;font-size:20px; border:none; background: transparent; border-bottom:1px solid white;`}/>
+          </div>
+          <div css={css`overflow:auto; display:flex;flex-direction:column;color:white; margin-top:20px;margin-left:5px;`}>
+          
+            {posts.length>0 ? <> {posts.map((item,i)=>{
+              console.log(item)
+              const post=state.source[item.type][item.id];
+              const attachment=state.source.attachment[post.featured_media];
+              const author=state.source.author[post.author];
+              const category=state.source.category[post.categories[0]];
+              const link=decodeURI(item.link).split('/');
+              const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
+              if(i<3){
+                  return (<div key={i}  css={css`width:550px; @media ${device.mobile}{width:100%;margin-top:5px;} `}>                                            
+                    <img src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:550px; @media ${device.mobile}{width:50%;height:120px;float:left;} `} />
+                    <div style={{color:'white',float:'left',width:'45%',marginLeft:'5px'}}>
+                        <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
+                        <Link href={post.link+post.id}>
+                            <h1 css={css`color:white;font-size:18px;margin-top:5px;width:30rem;text-transform: capitalize;@media ${device.mobile}{width:100%;}`}>{link}</h1>
+                        </Link>
+                        <p style={{fontSize:'12px',marginTop:'5px'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                    </div>                          
+                </div>)
+                }
+              })}<button onClick={()=>{actions.router.set(route);setsearchlogo(!searchlogo);sethide(!hide)}} css={css`background-color:0 0 8px rgb(0 0 0 / 36%);font-size:18px;padding:10px;&:hover{color:white;background-color:black;}`}>View More</button></>:
+              <p style={{marginLeft:'40%',marginTop:'20px',fontSize:'16px'}}>Not Found</p>
+             }
+          </div>
+      </HamburgerMenu>
+       }
+      <div className='search' onClick={()=>{setsearchlogo(!searchlogo);sethide(!hide);}}>            
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="searchLogo bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
       </div>
-
      </div>      
     
     
@@ -230,6 +302,7 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
         </Menu>
     </Container>
     {scrollPosition>234 &&
+    <>
     <div className='header-2'> 
         <img src='   https://www.newspitara.com/wp-content/uploads/2021/11/72579877_116985066377732_1378794148236099584_n-1-e1637308004260.jpg' className='logo'/>
         <div className='menu-2'> 
@@ -244,6 +317,19 @@ const Header = ({actions,state,hamburger,sethamburger}) => {
             </Menu>
         </div>
     </div>
+    <div className='header-mobile-2'>
+     <HamburgerIcon onClick={()=>{sethamburger(!hamburger);sethide(!hide)}}>
+        <svg viewBox="0 0 100 80" width="40" height="40">
+              <rect width="100" height="20"></rect>
+              <rect y="30" width="100" height="20"></rect>
+              <rect y="60" width="100" height="20"></rect>
+        </svg>     
+      </HamburgerIcon>  
+      <div css={css`margin-top:10px;margin-left:20%;`} onClick={()=>{setsearchlogo(!searchlogo);sethide(!hide);}}>            
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="searchLogo bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+      </div>
+    </div>
+    </>
     }
 
     <MenuCard menus={menustate}  setmenu={setmenu}/>
@@ -262,22 +348,23 @@ width:100%;
 
 const HamburgerMenu=styled.div`
 background-image:   linear-gradient(
-  rgba(0,0,255, 0.75), 
-  rgba(0,0, 255, 0.75)
+  rgb(15, 82, 186,0.85), 
+  rgb(15, 82, 186,0.85)
 ),  url("https://www.newspitara.com/wp-content/uploads/2021/11/vbbbb.jpg");
 color:white;
 width:100%;
 max-width:100%;
-height:100%;
+min-height: 100vh;
 float:left;
 background-repeat: no-repeat;
 display:inline;
 z-index:99999;
-position:fixed;
+position:absolute;
 top:0;
 left:0;
 @media ${device.desktop}{
   display:none;
+  
 }
 `
 const MenuList=styled.ul`
@@ -340,6 +427,7 @@ font-size:0.8125rem;
 padding:0.3125rem;
 background-color:#4169E1;
 color:white;
+height: 28px;
 &:hover {
     cursor:pointer;
 }
@@ -348,12 +436,24 @@ color:white;
 }
 `
 const Search=styled.div`
-// position:relative;
+position:relative;
 // top:10px;
-// display:block
+display:block;
 margin-left:15.625rem;
-@media ${device.laptop} {
-  margin-left:(100% - 100px);
-}
+// @media ${device.laptop} {
+//   margin-left:(100% - 100px);
+// }
 `
 
+
+const HamburgerIcon=styled.div`
+margin-top:10px;
+margin-left:20px;
+display:none;
+width:100px;
+@media ${device.mobile} {
+  display:inline;
+  float:left;
+}
+
+`
