@@ -43,6 +43,7 @@ const News = ({state,actions}) => {
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
             const category=state.source.category[post.categories[0]];
+            
             const link=decodeURI(item.link).split('/');
             const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
             

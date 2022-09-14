@@ -61,7 +61,7 @@ const TravelList= ({actions,state}) => {
                         if(i===0){
                             return ( <Children key={i} className=''>                                
                                     {/* <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`@media ${device.mobile}{width:245px;height:160px;float:left;}`}/> */}
-                                   <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px; @media ${device.mobile}{width:225px;height:160px;float:left;}`}/>
+                                   <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px; @media ${device.mobile}{width:40%;height:80%;float:left;}`}/>
                                     <div css={css`  
                                                     width:500px;
                                                     position:absolute;
@@ -91,7 +91,7 @@ const TravelList= ({actions,state}) => {
                         else if(i>=1 && i<=3 ){
                                 return(<>
                                 <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;margin-top:5px;}`}>
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px; @media ${device.mobile}{width:225px;height:160px;float:left;}`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px; @media ${device.mobile}{width:40%;height:80%;float:left;}`}/>
                                 <div css={css` @media ${device.mobile}{margin-left:10px; width:50%;}`}>
                                     <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>

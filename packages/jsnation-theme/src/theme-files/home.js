@@ -21,11 +21,11 @@ const Home = () => {
         <HomeList/> 
         <TechnologyList/>
         <TravelList/>
-        <Ads  top={'100px'} mobileTop={'2400px'}/>  
+        {/* <Ads  top={'100px'} mobileTop={'2400px'}/>  
         <Sports/>
         <Ads top={'480px'} mobileTop={'2500px'} />
         <VideoList top={'3700px'} mobileTop={'5050px'}/>  
-        <Footer top={'1300px'} mobileTop={'3400px'}/>     
+        <Footer top={'1300px'} mobileTop={'3400px'}/>      */}
     </Container>
   )
 }

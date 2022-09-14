@@ -7,7 +7,6 @@ const axios = require("axios");
 
 const HeaderText = ({hide,sethide}) => {
   const [weather,setweather]=React.useState({});
-  const [hamburger,sethamburger]=React.useState(false);
       //  Date
   let date=new Date();
   date=date.toLocaleString('en-US', {timeZone: 'Europe/London',
