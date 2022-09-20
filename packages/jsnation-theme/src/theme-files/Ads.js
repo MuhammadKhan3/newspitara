@@ -8,7 +8,7 @@ const Ads = ({top,height,mobileTop}) => {
     <Container css={css`top:${top ? top:'160px'}; @media ${device.mobile}{
       top:${mobileTop};
       left:10px;
-      width:100%;
+      width:90%;
       height:auto;
     }`}>
         <Text>-Advertisement-</Text>
@@ -23,16 +23,16 @@ export default connect(Ads);
 
 const Container=styled.div`
 width:600px;
-height:400px;
+height:auto;
 position:relative;
 left:300px;
-
 `
 const Image=styled.img`
 width:960px;
 height:80px;
 @media ${device.mobile}{
-  width:90%;
+  width:100%;
+  height:60px;
 }
 `
 const Text=styled.p`

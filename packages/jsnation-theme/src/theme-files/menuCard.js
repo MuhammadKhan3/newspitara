@@ -113,7 +113,9 @@ const menuCard = ({state,actions,menus,setmenu}) => {
                 const attachment=state.source.attachment[post.featured_media];
                 const author=state.source.author[post.author]
                 const image={...attachment};
-                const link=item.link.split('/');
+                const link=decodeURI(item.link).split('/');
+
+                // const link=item.link.split('/');
                 
                 if(i===4){ 
                     return ;
@@ -145,7 +147,7 @@ width:990px;
 height:300px;
 position:fixed;
 left:30rem;
-top:6.5rem;
+top:7.5rem;
 border:1px solid #D3D3D3;
 z-index:1000;
 display:flex;

@@ -9,8 +9,11 @@ const CoronaBar = () => {
         color:black;
         @media ${device.mobile}{
           margin-left:calc(100%-30px);
-          max-width:100px;
-          font-size:0.6rem;        
+          max-width:40%;
+          width:100px;
+          font-size: 7px;        
+          font-weight: 300 ;
+          text-transform: uppercase;
         }
      }
      .state1{
@@ -19,10 +22,10 @@ const CoronaBar = () => {
         font-size:15px;
         @media ${device.mobile}{
           margin-left:0.5rem;
-
           max-width:100px;
-          font-size:0.6rem;        
-
+          font-size: 7px;        
+          font-weight: 300 ;
+          text-transform: uppercase;
         }
      }
      .state2{
@@ -32,9 +35,10 @@ const CoronaBar = () => {
         @media ${device.mobile}{
           margin-left:1rem;
           width:object-fit;
-          max-width:90px;
-          font-size:0.6rem;        
-
+          max-width:100px;
+          font-size: 7px;        
+          font-weight: 300 ;
+          text-transform: uppercase;
         }        
      }
     `}
@@ -43,15 +47,15 @@ const CoronaBar = () => {
         <Heading>India <span style={{fontWeight:'500',fontSize:'0.81rem'}}>COVID-19 Statistics</span></Heading>
         <InnerContainer>
             <Children>
-              <p style={{width:'50%'}}>44,339,429</p>
+              <p style={{width:'50%'}} css={css`@media ${device.mobile}{font-family: Roboto ;font-size: 18px ;font-weight: 300 ;}`}>44,339,429</p>
               <p className='state1'>CONFIRMED CASES</p>
             </Children>
             <Children>
-              <p style={{width:'50%'}}>527,332</p> 
+              <p style={{width:'50%'}} css={css` @media ${device.mobile}{font-family: Roboto ;font-size: 18px ;font-weight: 300 ;}`}>527,332</p> 
               <p className='state2'>TOTAL DEATHS</p>
             </Children>
             <Children>
-              <p style={{width:'50%'}}>99,879</p> 
+              <p style={{width:'50%'}} css={css`@media ${device.mobile}{font-family: Roboto !important;font-size: 18px ; ;font-weight: 300 !important;}`}>99,879</p> 
               <p className='state'>TOTAL ACTIVE CASES</p>
             </Children>
         </InnerContainer>
@@ -69,12 +73,14 @@ left:14.37rem;
 font-size:0.8rem;
 width:100%;
 display:block;
+
 max-width:74.37rem;
 font-size:0.6rem;
 @media ${device.mobile} {
-  width:97%;
-  top:10rem;
-  left:1rem;
+  width:100%;
+  top:6rem;
+  left:0px;
+  left)
 }
   
 `
@@ -85,6 +91,7 @@ left:15.625rem;
 font-weight:bold;
 @media ${device.mobile} {
   left:1rem;
+  font-size:15px;
   max-width:100px;
   display:inline;
 }
@@ -103,8 +110,9 @@ font-weight:200;
 font-size:2.375rem;
 @media ${device.mobile}{
   position:absolute;
-  grid-template-columns:6rem 6rem 6rem;
-  left: 8.4rem;
+  grid-template-columns:5rem 5rem 5rem;
+  grid-column-gap: 3%;
+  left: 30%;
   width:150px;
   top:1rem;
 }
@@ -114,8 +122,7 @@ const Children=styled.div`
 margin-left:1rem;
 width:11.87rem;
 @media ${device.mobile}{
-margin-left:0.2rem;
 font-size:20px;
-width:80%;
+width:60%;
 }
 `

@@ -35,11 +35,11 @@ const VideoList= ({actions,state,top,mobileTop}) => {
         flex-wrap: wrap;
     }
     `}/>
-
-    <Container css={css`position:absolute; top:${top ? top:''}; @media ${device.mobile}{top:${mobileTop}}`}>
+{/* position:absolute; top:${top ? top:''}; @media ${device.mobile}{top:${mobileTop};} */}
+    <Container css={css`width:100%;position:relative;margin-top:400px; @media ${device.mobile}{margin-top:40px;}`}>
     <InnerContainer>
         <Heading>Video</Heading>
-        <div className='inner' style={{marginTop:'30px'}}>
+        <div className='inner' style={{marginTop:'30px'}} css={css`width:100%;`}>
             {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
@@ -63,33 +63,34 @@ const VideoList= ({actions,state,top,mobileTop}) => {
                                                     margin-left:20px;
                                                     @media ${device.mobile}{
                                                         // top:410px;
+                                                        width:95%;
+                                                        margin-left:0px;
                                                         // color:black;
                                                         position:relative;
                                                         top:0px;
                                                     }
                                                     `}>
 
-                                        <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
+                                        <p className='category' css={css`color:white; @media ${device.mobile}{color:black;}`}>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white; @media ${device.mobile}{font-size:18px;width:60%;color:black;}`}>{link}</h1>
+                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white; @media ${device.mobile}{font-size:15px;width:100%;color:black;}`}>{link}</h1>
                                         </Link>
-                                        <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                        <p className='author' css={css`color:white; @media ${device.mobile}{color:black;}`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
                                 </Children>)
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px; display:flex;flex-direction:row;margin-top:8px;}`}>
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:180px; @media ${device.mobile}{width:40%;height:90%;}`}/>
-                                <div>
-                                    <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
-                                    <Link href={post.link+post.id}>
-                                    <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'5px',fontSize:'12px',width:'200px'}}>{link}</h1>
-                                    </Link>
-                                    <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
-                                </div>
-                            </Children></>)
-                        }
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{width:100%;margin-left:0px; display:flex;flex-direction:row;margin-top:8px; }`}>
+                                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:180px; @media ${device.mobile}{width:40%;height:15vh;}`}/>
+                                    <div css={css`width:90%;@media ${device.mobile}{font-weight:bold,font-size:12px;margin-left:10px;width:100%;}`}>
+                                        <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
+                                        <Link href={post.link+post.id}>      
+                                            <h1 className='link'  css={css`color:black;font-weight:normal;margin-top:3px;font-size:12px;width:280px; &:hover{text-decoration:underline;}  @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                                        </Link>                                    <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                    </div>
+                               </Children></>)
+                         }
                         else{
                                 return;
                             }

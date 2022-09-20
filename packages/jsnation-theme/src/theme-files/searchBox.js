@@ -17,6 +17,7 @@ const SearchBox = ({actions,state}) => {
     });
     setroute(`/?s=${e.target.value}`)
   }
+
   const routehandler=()=>{
     actions.router.set(route);
   }
@@ -117,11 +118,11 @@ width:590px;
 min-height:120px;
 height:auto;
 box-shadow: 2px 2px 2px 2px #D3D3D3;
-position:relative;
+position:fixed;
 z-index:88;
 border:1px solid #D3D3D3;
 left:850px;
-top:20px;
+top:110px;
 animation-name: example;
 animation-duration: 2s;
 `

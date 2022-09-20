@@ -40,7 +40,7 @@ const FashionList= ({actions,state}) => {
     <Container>
     <InnerContainer>
         <Heading>Fashion</Heading>
-        <div className='inner' style={{marginTop:'30px'}}>
+        <div className='inner' css={css`margin-top:30px; @media ${device.mobile}{margin-top:10px;width:100%;}`}>
             {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
@@ -49,10 +49,8 @@ const FashionList= ({actions,state}) => {
                         const link=decodeURI(item.link).split('/');
                         const content=post.content.rendered.split('<p>')[1].split('</p>')[0];
                         if(i===0){
-                            return ( <Children key={i} className=''>
-                                
-                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
-
+                            return ( <Children key={i} className='' css={css` @media ${device.mobile}{width:100%;}`}>                                
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css` @media ${device.mobile}{width:40%;height:15vh;}`}/>
                                     <div css={css`   width:500px;
                                                     position:absolute;
                                                     top:270px;
@@ -62,11 +60,10 @@ const FashionList= ({actions,state}) => {
                                                         position:relative;
                                                         top:0px;
                                                         left:5px;
-                                                    }
                                                     `}>
                                         <p className='category '>{category.name}</p>
-                                        <Link href={post.link+post.id}>
-                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:black; @media ${device.mobile}{font-size:16px;}`}>{link}</h1>
+                                        <Link href={post.link+post.id}>      
+                                           <h1 className='link'  css={css`color:black;font-weight:normal;margin-top:3px;font-size:12px;width:160px; &:hover{text-decoration:underline}  @media ${device.mobile}{width:100%;}`}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
@@ -74,22 +71,24 @@ const FashionList= ({actions,state}) => {
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;}`}>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;width:100%;}`}>
 
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;height:167px; @media ${device.mobile}{width:163px;height:120px;}`}/>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;height:167px; @media ${device.mobile}{@media ${device.mobile}{width:40%;height:15vh;}}`}/>
                                 <div css={css` @media ${device.mobile}{
                                                         position:relative;
                                                         top:0px;
                                                         left:5px;
+                                                        width:60%;
                                                     }`}>
                                     <p className='category' style={{color:'#DB7093'}}>{category.name}</p>
-                                    <Link href={post.link+post.id}>
-                                    <h1 className='link'  css={css`color:black,font-weight:normal,margin-top:10px,font-size:12px,width:200px; @media ${device.mobile}{font-size:16px;}`}>{link}</h1>
-                                    </Link>
+                                    <Link href={post.link+post.id}>      
+                                          <h1 className='link'  css={css`color:black;font-weight:normal;margin-top:3px;font-size:12px;width:160px; &:hover{text-decoration:underline} @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                                        </Link>
                                     <p className='author'>{author? author.name:''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>
                             </Children></>)
                         }
+                        
                         else{
                                 return;
                             }
@@ -126,6 +125,7 @@ margin-left:220px;
 margin-top:40px;
 @media ${device.mobile}{
     margin-left:0px;
+    width:100%;
 }
 `
 const Heading=styled.div`

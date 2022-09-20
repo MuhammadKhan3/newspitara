@@ -19,7 +19,10 @@ import VideoPage from './videoPage';
 import PostDetail from './postDetail';
 import Post from './post';
 import Search from './search';
+import Loader from './loader';
 const Root = ({state}) => {
+  const [hide,sethide]=React.useState(true);
+
   const data = state.source.get(state.router.link);
   console.log(data)
     return (
@@ -35,18 +38,30 @@ const Root = ({state}) => {
           />
       
       <Global
-      styles={css`html{
+      styles={css`html,body{
         height:100%;
         width:100%;
         margin:0;
         padding:0;
-       }`}
+        box-sizing:border-box;
+       }
+       *,
+      ::before,
+      ::after {
+        border: 0 none transparent;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+       `}
       />
-      <body style={{width:'100%',minHeight:'100vh',boxSizing:'border-box'}}>
+      {/* <body style={{width:'100%',minHeight:'100vh',boxSizing:'border-box'}}> */}
+       <HeaderText hide={hide} sethide={sethide}/>
+      {hide &&
       <Container>
-       <HeaderText/>
         <Switch>
-          {data.route==='/' &&<Home when={data.isHome}/>}
+          
+          {data.route==='/' &&<Home when={data.isHome}/> }
           {data.route==='/category/news/' &&<News when={data.isCategory}/>}
           {data.route==='/category/fashion/' && <FashionPage when={data.isCategory}/>}
           {data.route==='/category/world/' && <WorldPage when={data.isCategory}/>}
@@ -67,8 +82,8 @@ const Root = ({state}) => {
 
 
         </Switch>    
-      </Container> 
-      </body> 
+      </Container>} 
+      {/* </body>  */}
       </>
     );
   };
@@ -76,4 +91,5 @@ export default connect(Root);
 
 const Container=styled.div`
 // max-width:100%;
+width:100%;
 `

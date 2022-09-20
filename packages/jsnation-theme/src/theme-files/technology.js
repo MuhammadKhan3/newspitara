@@ -9,7 +9,7 @@ const TechnologyList = ({actions,state}) => {
     const data=state.source.get('/category/tech');
     console.log(data)
   return (<>
-  <Global styles={css`
+  {/* <Global styles={css`
     .content1{
         width:500px;
         position:absolute;
@@ -53,16 +53,19 @@ const TechnologyList = ({actions,state}) => {
         display:flex;
         flex-direction:row;
         flex-wrap: wrap;
+        @media ${device.mobile}{
+            width:100%;
+        }
     }
     .flex-2{
         margin-top:30px;
         margin-left:45px;
     }
-    `}/>
-    <Container>
+    `}/> */}
+    <Container >
     <InnerContainer>
         <Heading>TECHNOLOGY</Heading>
-        <div className='inner' style={{marginTop:'30px'}}>
+        <div className='inner' style={{marginTop:'30px',}}>
             {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
@@ -74,40 +77,41 @@ const TechnologyList = ({actions,state}) => {
                         console.log('url',decodeURI(post.link))
 
                         if(i===0){
-                            return ( <Children key={i} className=''>
-                                
-                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
-                                    <div className='content'>
-                                        <p className='category'>{category.name}</p>
+                            return ( <Children key={i}  css={css` @media ${device.mobile}{width:100%;position:relative;}`}>                                
+                                    <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}  css={css``}/>
+                                    <div className='content' css={css`@media ${device.mobile}{color:white;position:absolute;top:180px;left:20px;}`}>
+                                        <p className='category' style={{color:'white'}}>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                        <h1 className='link'>{link}</h1>
+                                           <h1 className='link' css={css`font-size:18px;text-transform: capitalize;width:360px;color:white;color:black;font-weight:normal;marginTop:10px;font-size:16px;width:270px; &:hover{text-decoration:underline;} @media ${device.mobile}{width:90%;font-size:20px;color:white;}`}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
-                                
                                 </Children>)
                         }
                         else if(i>=1 && i<=2){
                                 return(<>
-                                <Children key={i}  className='header'>
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
-                                <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
+                                <Children key={i}  className='' css={css`margin-left:75px; @media ${device.mobile}{width:45%;margin-left:3%;}`}>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2' css={css`width:320px; @media ${device.mobile}{}`}/>
+                                <p className='category' style={{color:'#00D4FF'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'16px',width:'270px'}}>{link}</h1>
+                                <h1  css={css`font-size:18px;text-transform: capitalize;width:360px;color:black;font-weight:normal;marginTop:10px;fontSize:16px;width:270px;&:hover{text-decoration:underline;} @media ${device.mobile}{width:90%;font-size:14px;color:black;}`} >{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </Children></>)
                         }
                         else if(i>=4 && i<=9){
-                            return(<Children key={i} className={i===4 ? "" : 'flex-2'} style={{marginTop:'30px'}} >
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='fleximage-2'/>
-                                <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
-                                <Link href={post.link+post.id}>
-                                <h1 className='link' style={{color:'black',fontWeight:'normal',marginTop:'10px',fontSize:'14px',width:'160px'}}>{link}</h1>
-                                </Link>
-                                <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                            return(<Children key={i}  css={css`${i===4 ? '' : 'margin-top:30px;margin-left:45px;' } margin-top:30px; @media ${device.mobile}{margin-top:10px;margin-left:10px; width:100%;}`} >
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='fleximage-2' css={css`width:160px; @media ${device.mobile}{float:left;width:40%;height:15vh;}`}/>
+                                <div css={css` @media ${device.mobile}{margin-left:2%; float:left;width:56%;}`}>
+                                    <p className='category' style={{color:'#00D4FF'}}>{category.name}</p>
+                                    <Link href={post.link+post.id}>
+                                      <h1 className='link' css={css` font-size:16px;text-transform: capitalize;width:360px;color:black;font-weight:normal;margin-top:10px;font-size:16px;width:160px; &:hover{text-decoration:underline;} @media ${device.mobile}{margin-top:3px;width:90%;font-size:14px;color:black;}`}>{link}</h1>
+                                    </Link>
+                                    <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                </div>
                             </Children>)
-                        }else{
+                        }
+                        else{
                                 return;
                             }
                             
@@ -123,25 +127,41 @@ export default connect(TechnologyList)
 
 const Container=styled.div`
 background-color:#F2F2F2;
-position:relative;
-top:120px;
+// position:relative;
+// top:120px;
 width:auto;
 height:auto;
 padding:10px;
 display:flex;
 flex-direction:row;
+margin-top:10px;
+
 @media ${device.mobile}{
-display:none;
+    flex-direction:column;
+    width:100%;
+    padding:0px;
+    // position:static;
+    margin-top:0px;
+
 }
 `
 const InnerContainer=styled.div`
 margin-left:220px;
 margin-top:40px;
+@media ${device.mobile}{
+    margin-left:0px;
+    width:100%;
+}
 `
 const Heading=styled.div`
 font-weight:bold;
 border-left:3px solid #00D4FF;
 padding-left:5px;
+width:auto;
+@media ${device.mobile}{
+    margin-left:10px;
+
+}
 `
 const Children=styled.div`
 overflow-wrap: break-word;

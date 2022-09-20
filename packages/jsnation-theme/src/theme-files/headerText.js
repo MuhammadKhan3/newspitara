@@ -5,9 +5,8 @@ import Header from './header';
 import { device } from './device';
 const axios = require("axios");
 
-const HeaderText = () => {
+const HeaderText = ({hide,sethide}) => {
   const [weather,setweather]=React.useState({});
-  const [hamburger,sethamburger]=React.useState(false);
       //  Date
   let date=new Date();
   date=date.toLocaleString('en-US', {timeZone: 'Europe/London',
@@ -98,13 +97,7 @@ const HeaderText = () => {
         }
       `}/>
       <Container>
-      <Hamburger onClick={()=>{sethamburger(!hamburger)}}>
-        <svg viewBox="0 0 100 80" width="40" height="40">
-              <rect width="100" height="20"></rect>
-              <rect y="30" width="100" height="20"></rect>
-              <rect y="60" width="100" height="20"></rect>
-        </svg>     
-      </Hamburger>   
+
         <ChildOne>
            <ChildOneInner>
             <span style={{
@@ -139,7 +132,7 @@ const HeaderText = () => {
         </ChildOne>
         <br/>
         <ChildTwo>
-          <Header hamburger={hamburger} sethamburger={sethamburger}/>
+          <Header  hide={hide} sethide={sethide}/>
         </ChildTwo>
       </Container>
     </>
@@ -148,21 +141,11 @@ const HeaderText = () => {
 
 export default connect(HeaderText)
 
-const Hamburger=styled.div`
-margin-top:10px;
-margin-left:20px;
-display:none;
-width:100px;
-@media ${device.mobile} {
-  display:inline;
-  float:left;
-}
 
-`
 
 const Container=styled.div`
 background-color:white;
-width:object-fit;
+width:96%;
 `
 const ChildOne=styled.div`
 background-color:white;
@@ -198,12 +181,13 @@ display:none;
 const ChildTwo=styled.div`
 background:#FAFAFA;
 display:block;
-width:100%;
+width:1583px;
 // max-width:auto;
 margin:0 auto;
 height:60px;
 @media ${device.mobile}{
 background:white;
+width:93%;
 // width0%;
 }
 `

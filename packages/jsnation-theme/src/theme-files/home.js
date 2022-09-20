@@ -11,20 +11,23 @@ import FashionList from './fashion'
 import VideoList from './video'
 import Footer from './footer'
 import UpFun from './scrollUp'
-const Home = () => {
+import Loader from './loader'
+const Home = ({state}) => {
+  const data = state.source.get(state.router.link);
   return (
     <Container>
+        <Loader when={data.isFetching}/>
         <UpFun/>
         <TextSlider/>         
-        <CoronaBar/>
+        <CoronaBar/> 
         <HomeList/> 
         <TechnologyList/>
-        {/* <TravelList/>
-        <Ads  top={'100px'} mobileTop={'2400px'}/>
+        <TravelList/>
+        <Ads  top={'30px'} mobileTop={'10px'}/>  
         <Sports/>
-        <Ads top={'480px'} mobileTop={'2500px'} />
-        <VideoList top={'3700px'} mobileTop={'4950px'}/>
-        <Footer top={'1300px'} mobileTop={'3280px'}/>     */}
+        <Ads top={'10px'} mobileTop={'70px'} />
+        <VideoList top={'4600px'} mobileTop={'5430px'}/>  
+        <Footer top={'20px'} mobileTop={'50px'}/>     
     </Container>
   )
 }

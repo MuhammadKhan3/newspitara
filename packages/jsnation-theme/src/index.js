@@ -20,6 +20,8 @@ export default {
         console.log('ne',state.source.news)
         await actions.source.fetch('/category/news')
         await actions.source.fetch(state.source.fashion)
+        await actions.source.fetch('/')
+
         // await actions.source.fetch('/category/news/recipes')
 
         // await actions.source.fetch("/menu")
