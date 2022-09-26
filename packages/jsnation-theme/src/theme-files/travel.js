@@ -38,17 +38,26 @@ const TravelList= ({actions,state}) => {
     .fleximage-2{
         width:160px;
     }
-    .inner{
-        display:flex;
-        flex-direction:row;
-        flex-wrap: wrap;
+    .innerone{
+        display:grid;
+        grid-template-columns:auto auto auto auto;
+        @media ${device.laptop}{
+            width:95%;
+        }
+        @media ${device.mobile}{
+            display:flex;
+            width:100%;
+            flex-direction:row;
+            flex-wrap: wrap;
+        }
+
     }
 
     `}/>
     <Container>
     <InnerContainer>
         <Heading>Travel</Heading>
-        <div className='inner' css={css`@media ${device.mobile}{ margin-top:30px;margin-left:5px;}`}>
+        <div className='innerone' css={css`@media ${device.mobile}{ margin-top:30px;margin-left:5px;}`}>
             {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
@@ -65,10 +74,16 @@ const TravelList= ({actions,state}) => {
                                     <div css={css`  
                                                     width:500px;
                                                     position:absolute;
-                                                    top:260px;
+                                                    top:240px;
                                                     color:white;
                                                     font-family:Arial;
                                                     margin-left:20px;
+                                                    @media ${device.laptop}{
+                                                        width:auto;
+                                                    }
+                                                    @media ${device.tablet}{
+                                                        width:auto;
+                                                    }
                                                     @media ${device.mobile}{
                                                         position:relative;
                                                         width:50%;
@@ -82,7 +97,7 @@ const TravelList= ({actions,state}) => {
 
                                         <p className='category' style={{color:'#00D4FF'}}>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                          <h1 css={css`font-size:15px;text-transform: capitalize;color:black;font-weight:normal;margin-top:3px;font-size:12px;width:200px;&:hover{pointer:cursor;text-decoration:underline;} @media ${device.mobile}{width:100%;font-size:14px;color:black;}`}>{link}</h1>
+                                          <h1 css={css`font-size:15px;text-transform: capitalize;color:black;font-weight:normal;margin-top:3px;font-size:12px;width:200px;&:hover{pointer:cursor;text-decoration:underline;} @media ${device.mobile}{width:100%;font-size:14px;color:black;} `}>{link}</h1>
                                         </Link>
                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
@@ -90,12 +105,12 @@ const TravelList= ({actions,state}) => {
                         }
                         else if(i>=1 && i<=3 ){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;margin-top:5px;width:100%;}`}>
-                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px; @media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
-                                <div css={css` @media ${device.mobile}{margin-left:10px; width:55%;}`}>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.laptop}{width:100%;} @media ${device.mobile}{margin-left:0px;margin-top:5px;width:100%;}`}>
+                                <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:160px;  @media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
+                                <div css={css` @media ${device.mobile}{margin-left:10px; width:55%; } @media ${device.laptop}{width:auto;word-wrap: break-word;} @media ${device.tablet}{width:auto;word-wrap: break-word;}`}>
                                     <p className='category' style={{color:'#00D4FF'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>
-                                      <h1   css={css`font-size:15px;text-transform: capitalize;color:black;font-weight:normal;margin-top:3px;font-size:12px;width:280px;&:hover{pointer:cursor;text-decoration:underline;} @media ${device.mobile}{width:100%;font-size:14px;color:black;}`} >{link}</h1>
+                                      <h1   css={css`font-size:15px;text-transform: capitalize;color:black;font-weight:normal;margin-top:3px;font-size:12px;width:280px;&:hover{pointer:cursor;text-decoration:underline;} @media ${device.mobile}{width:100%;font-size:14px;color:black;} @media ${device.laptop}{width:90%;word-wrap: break-word;} @media ${device.tablet}{width:90%;word-wrap: break-word;}`} >{link}</h1>
                                     </Link>
                                     <p className='author'>{author ?author.name: ''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                 </div>
@@ -124,6 +139,7 @@ height:auto;
 padding:10px;
 display:flex;
 flex-direction:row;
+
 @media ${device.mobile}{
     // position:absolute;
     // top:110rem;
@@ -137,6 +153,13 @@ const InnerContainer=styled.div`
 margin-left:220px;
 margin-top:40px;
 
+@media ${device.laptop}{
+    margin-left:10px;
+
+}
+@media ${device.tablet}{
+    margin-left:10px;
+}
 @media ${device.mobile}{
     margin-left:10px;
     display:flex;
@@ -156,6 +179,7 @@ overflow: hidden;
     flex-direction:row;
     // width:100%;
 }
+
 `
 const Image=styled.img`
 width:320px;

@@ -167,11 +167,31 @@ flex-direction:column;
 @media ${device.mobile}{
     flex-direction:row;  
 }
+@media ${device.laptop}{
+ display:flex;
+ flex-direction:row
+
+}
+@media ${device.tablet}{
+ display:flex;
+
+ flex-direction:row;
+}
 `
 const Picks=styled.div`
 position:absolute;
 top:44px;
 left:300px;
+@media ${device.laptop}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+}
+@media ${device.tablet}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+}
 @media ${device.mobile}{
 left:20px;
 }
@@ -180,6 +200,17 @@ const Read=styled.div`
 position:absolute;
 top:44px;
 left:630px;
+@media ${device.laptop}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+}
+@media ${device.tablet}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+
+}
 @media ${device.mobile}{
     left:20px;
     top:388px;
@@ -190,6 +221,20 @@ const Popular=styled.div`
 position:absolute;
 top:44px;
 left:930px;
+@media ${device.laptop}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+    // margin-left:600px;
+}
+@media ${device.tablet}{
+    position:static;
+    margin-left:10px;
+    margin-top:50px;
+
+    // left:600px;
+}
+
 @media ${device.mobile}{
 top:688px;
 left:20px;
@@ -199,6 +244,12 @@ left:20px;
 const Image=styled.img`
 width:100px;
 height:70px;
+@media ${device.laptop}{
+    // left:600px;
+}
+@media ${device.tablet}{
+    display:none;
+}
 `
 
 const GridContainer=styled.div`
@@ -216,7 +267,14 @@ const ImageContainer=styled.div`
 position:absolute;
 left:1200px;
 top:70px;
+@media ${device.laptop}{
+    left:60%;
+}
+@media ${device.tablet}{
+    left:60%;
 
+
+}
 @media ${device.mobile}{
     left:70px;
     top:888px;
@@ -276,6 +334,15 @@ height:80px;
 background-color:royalblue;
 position:relative;
 top:334px;
+@media ${device.laptop}{
+posistion:static;
+top:0px;
+
+}
+@media ${device.tablet}{
+    posistion:static;
+    top:0px;
+}
 @media ${device.mobile}{
     top:1200px;
 }
@@ -305,6 +372,14 @@ top:40px;
     left:60%;
     width:auto;
 }
+
+@media ${device.laptop}{
+    display:none;
+}
+@media ${device.tablet}{
+    display:none;
+}
+
 // @media ${device.mobileL}{
 //     left:260px;
 // }

@@ -1,13 +1,16 @@
 import React from 'react'
 import { Global,css,connect,styled } from 'frontity'
 import Link from './link';
+import { device } from './device';
 const menuCard = ({state,actions,menus,setmenu}) => {
+    // menus
     // const [data,setdata]=React.useState([]);
     const [routes,setroutes]=React.useState('');
     const [post,setpost]=React.useState([]);
     const [len,setlen]=React.useState(0);
     const [start,setstart]=React.useState(0);
     const [end,setend]=React.useState(4);
+
     
     const [attachment,setattachment]=React.useState([]);
     
@@ -87,6 +90,12 @@ const menuCard = ({state,actions,menus,setmenu}) => {
         color:black;
         opacity:0.5;
     }
+    .link-menu{
+        font-size:11px;
+        @media ${device.tablet}{
+            font-size:0.5em;
+        }
+    }
     .right:hover{
         opacity:1;
     }
@@ -122,8 +131,8 @@ const menuCard = ({state,actions,menus,setmenu}) => {
                 }
                 return <Post key={i}>
                     <Image src={image['source_url']}/>
-                    <p>{link[1]}</p>
-                    <span style={{fontSize:'11px'}}>{author.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</span>
+                    <p className='link-menu'>{link[1]}</p>
+                    <span className='link-menu' >{author.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</span>
                 </Post>
             })}
         </PostContainer>
@@ -154,6 +163,19 @@ display:flex;
 flex-position:row;
 animation-name: example;
 animation-duration: 2s;
+@media ${device.laptop}{
+    width:auto;
+    left:15%;
+    max-width:900px;
+}
+@media ${device.tablet}{
+    left:4%;
+    max-width:700px;
+    width:auto;
+    width:calc(100%-10%);
+    padding-left:10%; 
+    height:240px;
+}
 `
 const InnerContainer=styled.div`
 display:flex;
@@ -161,7 +183,7 @@ flex-direction:column;
 border-right:1px solid #D3D3D3;
 margin:0px;
 width:120px;
-height:300px;
+// height:300px;
 padding:0px;
 position:relative;
 top:0px;
@@ -176,6 +198,9 @@ margin-top:6px;
 margin-left:24px;
 font-size:12px;
 font-weight:bold;
+@media ${device.tablet}{
+    margin-left:1%;
+}
 `
 const List=styled.li`
 list-style-type:none;
@@ -196,16 +221,30 @@ justify-content: space-between;
 
 const Post=styled.div`
 margin-left:10px;
-width:200px;
+width:20%;
+@media ${device.tablet}{
+    height:auto;
+}
 `
 const Image=styled.img`
-width:200px;
-height:140px;
+// width:200px;
+// height:140px;
+
+width:100%;
+height:20vh;
+@media ${device.tablet}{
+    width:100%;
+    height:15vh;
+}
 `
 const Icon=styled.div`
 display:flex;
 flex-direction:row;
 position:absolute;
-left:140px;
+left:120px;
 top:260px;
+@media ${device.tablet}{
+    top:190px;
+    left:25%;
+}
 `

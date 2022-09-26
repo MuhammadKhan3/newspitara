@@ -55,6 +55,9 @@ const HomeList = ({actions,state}) => {
     .image-2{
         width:320px;
         height:200px;
+        @media ${device.tablet}{
+            width:100%;
+        }
         @media ${device.mobile}{
             height:25vh;
             width:100%;
@@ -63,6 +66,9 @@ const HomeList = ({actions,state}) => {
     .image3{
         height:200px;
         width:300px;
+        @media ${device.tablet}{
+            height:150px;
+        }
         @media ${device.mobile}{
             width:40%;
             height:80%;
@@ -72,6 +78,11 @@ const HomeList = ({actions,state}) => {
     .header1{
         grid-column-start:1;
         grid-column-end:3;
+        @media ${device.tablet}{
+            width:100%;
+            grid-column-start:1;
+            grid-column-end:3;
+        }
         @media ${device.mobile}{
             width:100%;
             grid-column-start: 1;
@@ -106,6 +117,10 @@ const HomeList = ({actions,state}) => {
         }
     }
     .child3-content{
+        @media ${device.tablet}{
+            width:100%;
+            font-size:13px;
+        }
         @media ${device.mobile}{
             margin-left:10px;
             // margin-top:40px;
@@ -126,7 +141,7 @@ const HomeList = ({actions,state}) => {
                  if(i===0){
                     return ( <Children key={i} className='header1 child1'>
                             <Image src={typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}></Image>
-                            <div className='content1' css={css`margin-top:330px; @media ${device.mobile}{margin-top:280px;}`}>
+                            <div className='content1' css={css`margin-top:330px; @media ${device.mobile}{margin-top:220px;width:fit-content;}`}>
                                 <p className='category' style={{color:'white'}}>{category.name}</p>
                                 <Link href={post.link+post.id} color={'white'}>
                                   <h1 className='link' style={{color:'white'}}>{link}</h1>
@@ -138,10 +153,10 @@ const HomeList = ({actions,state}) => {
                  else if(i>=1 && i<=2){
                     return(<>
                     <Children key={i} className='child2' >
-                        <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2'/>
+                        <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='image-2' css={css`        @media ${device.mobile}{height:25vh;width:90%;}`}/>
                         <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
                         <Link href={post.link+post.id} color='black'>
-                           <h1  css={css`color:black;font-weight:normal;margin-top:10px;font-size:16px;width:270px; &:hover{text-decoration:underline;} @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                           <h1  css={css`color:black;font-weight:normal;margin-top:10px;font-size:16px;width:270px; &:hover{text-decoration:underline;} @media ${device.mobile}{width:100%;} @media ${device.tablet}{width:100%;font-size:15px;}`}>{link}</h1>
                         </Link>
                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                     </Children></>)
@@ -159,7 +174,7 @@ const HomeList = ({actions,state}) => {
                             <div className='child3-content'>
                                 <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
                                 <Link href={post.link+post.id} color='black'>
-                                <h1 className='link' css={css`color:black;font-weight:normal;margin-top:10px;font-size:16px;width:270px;&:hover{text-decoration:underline;}`}  >{link}</h1>
+                                <h1 className='link' css={css`color:black;font-weight:normal;margin-top:10px;font-size:16px;width:270px;&:hover{text-decoration:underline;} @media ${device.tablet}{width:100%;font-size:13px;}`}  >{link}</h1>
                                 </Link>
                                 <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </div>
@@ -169,11 +184,11 @@ const HomeList = ({actions,state}) => {
                   else if(i>4 && i<=7){
 
                     return(<Children key={i} css={css`@media ${device.mobile}{margin-left:20px;grid-column-start:1;grid-column-end:3;}`} >
-                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`height:200px;width:300px;@media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
-                     <div css={css`@media ${device.mobile}{margin-left:10px;width:55%;float:left;}`}>
+                    <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`height:200px;width:300px;@media ${device.mobile}{width:40%;height:15vh;float:left;} @media ${device.tablet}{height:150px;}`}/>
+                     <div css={css`@media ${device.mobile}{margin-left:10px;width:55%;float:left;} @media ${device.tablet}{width:100%}`}>
                        <p className='category' style={{color:'#4169E1'}}>{category.name}</p>
                        <Link href={post.link+post.id} >
-                           <h1  css={css`font-size:18px;text-transform: capitalize;width:360px;font-weight:normal;color:black;margin-top:10px;fontSize:16px;width:270px;&:hover{text-decoration:underline;} @media ${device.mobile}{margin-top:0px;width:100%;font-size:14px;color:black;}`}>{link}</h1>
+                           <h1  css={css`font-size:18px;text-transform: capitalize;width:360px;font-weight:normal;color:black;margin-top:10px;fontSize:16px;width:270px;&:hover{text-decoration:underline;} @media ${device.mobile}{margin-top:0px;width:100%;font-size:14px;color:black;} @media ${device.tablet}{font-size:13px;width:100%;}`}>{link}</h1>
                        </Link>
                        <p className='author'>{author ? author.name :''}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                    </div>
@@ -196,14 +211,24 @@ const Container=styled.div`
 // left:230px;
 // top
 margin-left:230px;
-margin-top:80px;
+margin-top:20px;
 overflow:hidden;
-width:1180px;
+width:1194px;
 height:auto;
 display:grid;
 grid-template-columns:auto auto auto auto;
 grid-template-rows:auto auto auto;
 grid-gap:15px;
+
+@media ${device.laptop}{
+    width:90%;
+    margin-left:10px;
+}
+@media ${device.tablet}{
+    width:98%;
+    margin-left:10px;
+    grid-template-columns:20% 20% 25% 25%;
+}
 @media ${device.mobile}{
 // position:absolute;
 grid-template-columns:auto auto;
@@ -226,6 +251,10 @@ overflow:hidden;
 &:hover{
     transform:scale(1.1);
     cursor:pointer;
+}
+@media ${device.tablet}{
+    width:100%;
+    // height:200px;
 }
 @media ${device.mobile}{
     width:100%;

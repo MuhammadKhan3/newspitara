@@ -40,7 +40,7 @@ const FashionList= ({actions,state}) => {
     <Container>
     <InnerContainer>
         <Heading>Fashion</Heading>
-        <div className='inner' css={css`margin-top:30px; @media ${device.mobile}{margin-top:10px;width:100%;}`}>
+        <div className='inner' css={css`margin-top:30px; @media ${device.laptop}{width:100%;} @media ${device.tablet}{width:100%;} @media ${device.mobile}{margin-top:10px;width:100%;}`}>
             {typeof data.items==='object' && data.items.map((item,i)=>{
                         const post=state.source[item.type][item.id];
                         const attachment=state.source.attachment[post.featured_media];
@@ -49,7 +49,7 @@ const FashionList= ({actions,state}) => {
                         const link=decodeURI(item.link).split('/');
                         const content=post.content.rendered.split('<p>')[1].split('</p>')[0];
                         if(i===0){
-                            return ( <Children key={i} className='' css={css` @media ${device.mobile}{width:100%;}`}>                                
+                            return ( <Children key={i} className='' css={css` @media ${device.laptop}{width:20%;} @media ${device.tablet}{width:20%;} @media ${device.mobile}{width:100%;}`}>                                
                                     <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css` @media ${device.mobile}{width:40%;height:15vh;}`}/>
                                     <div css={css`   width:500px;
                                                     position:absolute;
@@ -71,7 +71,7 @@ const FashionList= ({actions,state}) => {
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{margin-left:0px;width:100%;}`}>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.laptop}{width:20%;} @media ${device.tablet}{width:20%;}  @media ${device.mobile}{margin-left:0px;width:100%;}`}>
 
                                 <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px;height:167px; @media ${device.mobile}{@media ${device.mobile}{width:40%;height:15vh;}}`}/>
                                 <div css={css` @media ${device.mobile}{
@@ -106,23 +106,43 @@ export default connect(FashionList)
 const Container=styled.div`
 background-color:#F2F2F2;
 position:absolute;
-top:680px;
+top:550px;
 max-width:auto;
-width:1573px;
+width:100%;
 height:auto;
 padding:10px;
 display:flex;
 flex-direction:row;
+
+@media ${device.laptop}{
+    width:100%;
+    margin-left:30px;
+}
+@media ${device.tablet}{
+    width:%;
+    margin-left:30px;
+
+}
 @media ${device.mobile}{
     width:100%;
     position:relative;
     top:50px;
     flex-direction:column;
 }
+
 `
 const InnerContainer=styled.div`
 margin-left:220px;
 margin-top:40px;
+
+@media ${device.laptop}{
+    width:100%;
+    margin-left:10px;
+}
+@media ${device.tablet}{
+    width:100%;
+    margin-left:10px;
+}
 @media ${device.mobile}{
     margin-left:0px;
     width:100%;

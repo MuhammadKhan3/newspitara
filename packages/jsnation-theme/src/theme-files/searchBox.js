@@ -1,6 +1,7 @@
 import React from 'react'
 import { styled,Global,css,connect } from 'frontity';
 import Link from './link';
+import { device } from './device';
 const SearchBox = ({actions,state}) => {
   const [post,setpost]=React.useState([])
   const [flag,setflag]=React.useState(false);
@@ -125,6 +126,12 @@ left:850px;
 top:110px;
 animation-name: example;
 animation-duration: 2s;
+@media ${device.laptop}{
+  left:42%;
+}
+@media ${device.tablet}{
+  left:30%;
+}
 `
 const Input=styled.input`
 border:none;

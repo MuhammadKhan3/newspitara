@@ -19,15 +19,15 @@ const Home = ({state}) => {
         <Loader when={data.isFetching}/>
         <UpFun/>
         <TextSlider/>         
-        <CoronaBar/> 
-        <HomeList/> 
-        <TechnologyList/>
+        <CoronaBar/>
+        <HomeList/>  
+         <TechnologyList/>
         <TravelList/>
         <Ads  top={'30px'} mobileTop={'10px'}/>  
         <Sports/>
-        <Ads top={'10px'} mobileTop={'70px'} />
-        <VideoList top={'4600px'} mobileTop={'5430px'}/>  
-        <Footer top={'20px'} mobileTop={'50px'}/>     
+        <Ads top={'430px'} mobileTop={'70px'} /> 
+        <VideoList top={'4600px'} mobileTop={'5430px'}/>   
+        <Footer top={'20px'} mobileTop={'50px'}/>      
     </Container>
   )
 }

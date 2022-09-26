@@ -32,7 +32,7 @@ const VideoList= ({actions,state,top,mobileTop}) => {
     .inner{
         display:flex;
         flex-direction:row;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
     }
     `}/>
 {/* position:absolute; top:${top ? top:''}; @media ${device.mobile}{top:${mobileTop};} */}
@@ -51,16 +51,26 @@ const VideoList= ({actions,state,top,mobileTop}) => {
                         console.log('url',decodeURI(post.link))
 
                         if(i===0){
-                            return ( <Children key={i} >
+                            return ( <Children key={i}  css={css`@media ${device.laptop}{width:20%;} @media ${device.tablet}{width:20%;}`}>
                                 
                                     <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}/>
 
-                                    <div css={css`   width:500px;
+                                    <div css={css` width:500px;
                                                     position:absolute;
                                                     top:250px;
                                                     color:white;
                                                     font-family:Arial;
                                                     margin-left:20px;
+                                                    @media ${device.laptop}
+                                                    {
+                                                        margin-left:10px;
+                                                        width:20%;
+                                                    }
+                                                    @media ${device.tablet}
+                                                    {
+                                                       margin-left:10px;
+                                                        width:20%;
+                                                    }
                                                     @media ${device.mobile}{
                                                         // top:410px;
                                                         width:95%;
@@ -73,7 +83,7 @@ const VideoList= ({actions,state,top,mobileTop}) => {
 
                                         <p className='category' css={css`color:white; @media ${device.mobile}{color:black;}`}>{category.name}</p>
                                         <Link href={post.link+post.id}>
-                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white; @media ${device.mobile}{font-size:15px;width:100%;color:black;}`}>{link}</h1>
+                                          <h1 className='link' css={css`font-size:15px;text-transform: capitalize;width:280px;color:white; @media ${device.laptop}{width:90%;font-size:15px;}  @media ${device.tablet}{width:90%;font-size:11px;} @media ${device.mobile}{font-size:15px;width:100%;color:black;}`}>{link}</h1>
                                         </Link>
                                         <p className='author' css={css`color:white; @media ${device.mobile}{color:black;}`}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div> 
@@ -81,13 +91,14 @@ const VideoList= ({actions,state,top,mobileTop}) => {
                         }
                         else if(i>=1 && i<=3){
                                 return(<>
-                                <Children key={i}  css={css`margin-left:20px; @media ${device.mobile}{width:100%;margin-left:0px; display:flex;flex-direction:row;margin-top:8px; }`}>
+                                <Children key={i}  css={css`margin-left:20px; @media ${device.laptop}{width:20%;} @media ${device.tablet}{width:20%;} @media ${device.mobile}{width:100%;margin-left:0px; display:flex;flex-direction:row;margin-top:8px; }`}>
                                     <img  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css `width:270px; height:180px; @media ${device.mobile}{width:40%;height:15vh;}`}/>
-                                    <div css={css`width:90%;@media ${device.mobile}{font-weight:bold,font-size:12px;margin-left:10px;width:100%;}`}>
+                                    <div css={css`width:90%;   @media ${device.laptop}{width:100%;}@media ${device.tablet}{width:100%;}@media ${device.mobile}{font-weight:bold,font-size:12px;margin-left:10px;width:100%;}`}>
                                         <p className='category' style={{color:'#C45AEC'}}>{category.name}</p>
                                         <Link href={post.link+post.id}>      
-                                            <h1 className='link'  css={css`color:black;font-weight:normal;margin-top:3px;font-size:12px;width:280px; &:hover{text-decoration:underline;}  @media ${device.mobile}{width:100%;}`}>{link}</h1>
-                                        </Link>                                    <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
+                                            <h1 className='link'  css={css`color:black;font-weight:normal;margin-top:3px;font-size:12px;width:280px; &:hover{text-decoration:underline;} @media ${device.laptop}{width:100%} @media ${device.tablet}{width:100%} @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                                        </Link>                                   
+                                         <p className='author'>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                                     </div>
                                </Children></>)
                          }
@@ -115,6 +126,12 @@ flex-direction:row;
 @media ${device.mobile}{
     width:100%;
 }
+@media ${device.laptop}{
+    width:100%;
+}
+@media ${device.tablet}{
+    width:100%;
+}
 `
 const InnerContainer=styled.div`
 margin-left:220px;
@@ -122,6 +139,15 @@ margin-top:40px;
 @media ${device.mobile}{
     margin-left:0px;
     width:100%;
+}
+@media ${device.laptop}{
+    width:100%;
+margin-left:10px;
+}
+@media ${device.tablet}{
+    width:100%;
+
+margin-left:10px;
 }
 `
 const Heading=styled.div`

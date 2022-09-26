@@ -111,6 +111,12 @@ display:flex;
 flex-direction:row;
 width:80rem;
 max-width:50rem;
+@media ${device.laptop}{
+    left:10%;
+}
+@media ${device.tablet}{
+    left:3%;
+}
 @media ${device.mobile} {
     display:none;
 }
@@ -125,4 +131,7 @@ const Icon=styled.div`
 position:absolute;
 left:43.75rem;
 top:-6px;
+@media ${device.tablet}{
+    left:42rem;
+}
 `

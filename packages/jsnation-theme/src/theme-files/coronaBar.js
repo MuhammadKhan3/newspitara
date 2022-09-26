@@ -7,6 +7,7 @@ const CoronaBar = () => {
      .state{
         font-size:13px;
         color:black;
+        width:fit-content;
         @media ${device.mobile}{
           margin-left:calc(100%-30px);
           max-width:40%;
@@ -54,7 +55,7 @@ const CoronaBar = () => {
               <p style={{width:'50%'}} css={css` @media ${device.mobile}{font-family: Roboto ;font-size: 18px ;font-weight: 300 ;}`}>527,332</p> 
               <p className='state2'>TOTAL DEATHS</p>
             </Children>
-            <Children>
+            <Children css={css`width:fit-content;`}>
               <p style={{width:'50%'}} css={css`@media ${device.mobile}{font-family: Roboto !important;font-size: 18px ; ;font-weight: 300 !important;}`}>99,879</p> 
               <p className='state'>TOTAL ACTIVE CASES</p>
             </Children>
@@ -68,7 +69,7 @@ const Container=styled.div`
 background-color:#F2F2F2;
 height:4.375rem;
 position:relative;
-top:4.06rem;
+margin-top:4.06rem;
 left:14.37rem;
 font-size:0.8rem;
 width:100%;
@@ -76,12 +77,20 @@ display:block;
 
 max-width:74.37rem;
 font-size:0.6rem;
+@media ${device.laptop}{
+left:1%;
+width:98%;
+}
+@media ${device.tablet}{
+ left:10px; 
+ width:98%;
+}
 @media ${device.mobile} {
-  width:100%;
+  width:98%;
   top:6rem;
   left:0px;
-  left)
 }
+
   
 `
 const Heading=styled.p`
@@ -89,6 +98,13 @@ position:absolute;
 top:1.5rem;
 left:15.625rem;
 font-weight:bold;
+@media ${device.tablet}{
+  left:2rem;
+}
+
+@media ${device.laptop}{
+  left:2rem;
+}
 @media ${device.mobile} {
   left:1rem;
   font-size:15px;
@@ -108,6 +124,12 @@ box-sizing:border-box;
 font-family:Calibri;
 font-weight:200;
 font-size:2.375rem;
+@media ${device.laptop}{
+  left:25%;
+}
+@media ${device.tablet}{
+  left:25%;
+}
 @media ${device.mobile}{
   position:absolute;
   grid-template-columns:5rem 5rem 5rem;
@@ -116,6 +138,7 @@ font-size:2.375rem;
   width:150px;
   top:1rem;
 }
+
 `
 
 const Children=styled.div`

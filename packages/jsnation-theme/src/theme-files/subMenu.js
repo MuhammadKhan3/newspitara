@@ -1,6 +1,7 @@
 import React from 'react'
 import { styled,Global,css, } from 'frontity'
 import Link from './link'
+import { device } from './device'
 const SubMenu = ({setmenu}) => {
     const menu=[
         ['Recipes','/category/news/recipes'],
@@ -30,11 +31,23 @@ font-size:12px;
 font-weight:bold;
 height:140px;
 width:140px;
-margin-top:4px;
-margin-left:560px;
+margin-top:8px;
+margin-left:540px;
 display:inline-block;
 position:fixed;
-z-index:99900;
+z-index:9990;
+
+@media ${device.laptop}{
+  // position:relative;
+  // // margin-left:560px;
+  // margin-top:8px;
+}
+@media ${device.tablet}{
+  position:relative;
+  margin-left:385px;
+  margin-top:12px;
+}
+
 `
 const Menu=styled.ul`
 list-style-type:none;

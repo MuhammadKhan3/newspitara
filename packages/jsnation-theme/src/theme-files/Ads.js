@@ -26,10 +26,27 @@ width:600px;
 height:auto;
 position:relative;
 left:300px;
+
+@media ${device.laptop}{
+  left:10%;
+  width:80%;
+}
+@media ${device.tablet}{
+  left:10%;
+  width:80%;
+
+}
+
 `
 const Image=styled.img`
 width:960px;
 height:80px;
+@media ${device.laptop}{
+  width:80%;
+}
+@media ${device.tablet}{
+  width:80%;
+}
 @media ${device.mobile}{
   width:100%;
   height:60px;
@@ -38,6 +55,13 @@ height:80px;
 const Text=styled.p`
 margin-left:440px;
 font-size:10px;
+width:fit-content;
+@media ${device.laptop}{
+  margin-left:50%;
+}
+@media ${device.tablet}{
+  margin-left:40%;
+}
 @media ${device.mobile}{
   // text-align:center;
   margin-left:0px;

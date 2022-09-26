@@ -48,8 +48,8 @@ const Pagination = ({state,actions}) => {
                 const category=state.source.category[post.categories[0]];
                 const link=decodeURI(item.link).split('/');
                 const content=post.content.rendered.split('<p>')[1].split('</p>')[0];                                
-                        return ( <Children key={i} css={css`width:330px; @media ${device.mobile}{width:100%;}`} >                                                
-                            <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} css={css`width:330px;transform:scale(1); @media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
+                        return ( <Children key={i} css={css`width:330px; @media ${device.tablet}{width:80%;} @media ${device.laptop}{width:80%;}  @media ${device.mobile}{width:100%;}`} >                                                
+                            <Image src={`${typeof attachment==='object' ? attachment['source_url'] : 'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}`} css={css`width:330px;transform:scale(1); @media ${device.laptop}{width:100%;} @media ${device.tablet}{width:100%;} @media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
                                 <div css={css`position:relative;color:white; @media ${device.mobile}{float:left; width:55%;margin-left:10px;}`}>
                                     <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
                                     <Link href={post.link+post.id}>
@@ -78,11 +78,11 @@ const Pagination = ({state,actions}) => {
                 <p  css={css`margin-left:540px;font-size:11px;color:gray; @media ${device.mobile}{display:none;}`}>Page {data.page} of {data.totalPages}</p>
             </Paginate>
         </PostContainer>
-        <AdsContainer>
+        {/* <AdsContainer>
             <Text>-Advertisement-</Text>
             <AdImage src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz-970-2.jpg'></AdImage>
            <AdImage1 src='https://www.newspitara.com/wp-content/uploads/2021/11/corhaz4.png'/>
-        </AdsContainer>  
+        </AdsContainer>   */}
         </InnerOne>
     <InnerTwo>
         <h1 style={{fontSize:'16px',borderLeft:'3px solid #4169E1',paddingLeft:'5px',marginBottom:'8px',padding:'6px'}}>MUST READ</h1>
@@ -161,12 +161,21 @@ display:grid;
 grid-template-columns:auto auto;
 grid-template-rows:auto auto auto auto auto;
 grid-row-gap:10px;
+
+@media ${device.laptop}{
+    margin-left:2%;
+}
+@media ${device.tablet}{
+    margin-left:2%;
+}
+
 @media ${device.mobile}{
     margin-left:10px;
     margin-top:30px;
     display:block;
     width:96%;
 }
+
 `
 
 const AdsContainer=styled.div`
@@ -184,6 +193,14 @@ height:200px;
     height:auto;
     display:block;
 }
+@media ${device.laptop}{
+    left:10%;
+    // width:70%;
+}
+@media ${device.tablet}{
+    left:5%;
+    // width:70%;
+}
 `
 
 
@@ -194,6 +211,14 @@ margin-left:420px;
 width:fit-content;
 @media ${device.mobile}{
     margin-left:40%;
+}
+@media ${device.laptop}{
+    margin-left:50%;
+    
+}
+@media ${device.tablet}{
+    margin-left:50%;
+    
 }
 `;
 const AdImage1=styled.img`
@@ -208,6 +233,7 @@ const PostContainer=styled.div`
 @media ${device.mobile}{
     width:100%;
 }
+
 `;
 
 const InnerOne=styled.div`
@@ -224,6 +250,12 @@ position:relative;
      display:block;
     top:100px;
      left:10px;
+}
+@media ${device.tablet}{
+    display:none;
+}
+@media ${device.laptop}{
+    display:none;
 }
 `;
 
@@ -299,7 +331,12 @@ display:block;
     width:200px;
     height:150px;
     display:none;
-
+}
+@medida ${device.tablet}{
+    width:70%;
+}
+@medida ${device.laptop}{
+    width:70%;
 }
 `
 

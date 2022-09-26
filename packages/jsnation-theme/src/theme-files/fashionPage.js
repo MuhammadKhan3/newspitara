@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import TextSlider from './textSlider'
-import { styled,connect,css } from 'frontity'
+import { Global,styled,connect,css } from 'frontity'
 import Link from './link';
 import Ads from './Ads';
 import Pagination from './pagination';
@@ -24,7 +24,106 @@ const FashionPage = ({state,actions}) => {
     }, []);
         actions.source.fetch('/category/fashion/')
         const data=state.source.get('/category/fashion/');
-  return (
+  return (<>
+    <Global
+  styles={`
+  .posts{
+
+  }
+
+  .merge-grid{
+    @media ${device.laptop}{
+        grid-column:span 3;
+    }
+    @media ${device.tablet}{
+        grid-column:span 3;
+    }
+  }
+  .merge-grid1{
+    @media ${device.laptop}{
+     grid-column:span 3;
+    }
+    @media ${device.tablet}{
+        grid-column:span 3;
+    }
+  }
+  .merge-grid2{
+    @media ${device.laptop}{
+        grid-column:span 2;
+        width:33%;
+    }
+    @media ${device.tablet}{
+        grid-column:span 2;
+        width:33%;
+    }
+  }
+  .children-one{
+    width:550px;    
+    @media ${device.laptop}{width:80%;}
+    @media ${device.tablet}{width:80%;}
+     @media ${device.mobile}{width:100%;}
+  }
+  .children-two{
+    width:550px;    
+    @media ${device.laptop}{width:80%;}
+    @media ${device.tablet}{
+        width:80%;
+    }
+
+     @media ${device.mobile}{width:100%;} 
+  }
+  .children-three{
+    width:370px; 
+    &:hover{text-decoration:underline;}
+    @media ${device.mobile}{width:100%;}
+    @media ${device.laptop}{
+        width:90%;
+    }
+    @media ${device.tablet}{
+        width:90%;
+        // height:25vh;
+    }
+  }
+  .children-image-one{
+    width:550px;     
+    @media ${device.laptop}{width:87%;}
+    @media ${device.tablet}{width:87%;}
+     @media ${device.mobile}{width:100%;}   
+   }
+  .children-image-two{
+    width:550px; 
+    @media ${device.laptop}{width:87%;}
+    @media ${device.tablet}{width:67%;}
+    @media ${device.mobile}{width:100%;} 
+   }
+  .chlidren-image-three{
+    width:350px;
+    transform:scale(1); 
+    @media ${device.mobile}
+    {
+        width:40%;
+        height:15vh;
+        float:left;
+    }
+    @media ${device.laptop}{
+        width:60%;
+    }
+    @media ${device.tablet}{
+        width:60%;
+        height:10vh;
+    }
+  }
+  .children{
+    @media ${device.laptop}{width:47%;}
+    @media ${device.tablet}{
+        width:47%;
+    }
+  }
+  .image-one{
+
+  }
+  `}
+  />
   <Container>
       <TextSlider/>
       <Content>
@@ -43,47 +142,47 @@ const FashionPage = ({state,actions}) => {
         </Content>
         <PostContainer>
         
-      <Posts>
-        {typeof data.items==='object' ? data.items.map((item,i)=>{
+       <Posts>
+       {typeof data.items==='object' ? data.items.map((item,i)=>{
             const post=state.source[item.type][item.id];
             const attachment=state.source.attachment[post.featured_media];
             const author=state.source.author[post.author];
             const category=state.source.category[post.categories[0]];
+            
             const link=decodeURI(item.link).split('/');
             const content=post.content.rendered.split('<p>')[1].split('</p>')[0]
             
                     if(i===0){
-                     return ( <Children key={i}  css={css`width:550px; @media ${device.mobile}{width:100%;} `}>                                            
-                           <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:550px; @media ${device.mobile}{width:100%;} `} />
+                     return ( <Children key={i}  className='children-one merge-grid' >                                            
+                            <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className='children-image-one'  />
                             <div style={{position:'absolute',marginLeft:'10px',top:'210px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem',marginTop:'5px'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
-                                    <h1 css={css`color:white;font-size:18px;margin-top:5px;width:30rem;text-transform: capitalize; @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                                    <h1 style={{color:'white',fontSize:'18px',marginTop:'5px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
-                                
                                 <p style={{fontSize:'12px',marginTop:'5px'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </div>                         
                         </Children>)
                    }
                    else if(i===1){
-                       return ( <Children key={i} css={css`width:550px; @media ${device.mobile}{width:100%;} `}>                                                
-                        <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:550px; @media ${device.mobile}{width:100%;} `}/>
+                       return ( <Children className='children-two merge-grid1' key={i} >                                                
+                        <Image  src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} className="children-image-two"/>
                             <div style={{position:'absolute',marginLeft:'10px',top:'220px',color:'white'}}>
                                 <p style={{fontSize:'0.7rem'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
-                                    <h1 css={css`color:white;font-size:18px;margin-top:5px;width:30rem;text-transform: capitalize; @media ${device.mobile}{width:100%;}`}>{link}</h1>
+                                    <h1 style={{color:'white',marginTop:'5px',fontSize:'18px',width:'30rem',textTransform: 'capitalize'}}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </div>                         
                         </Children>)
                    }
                    else if(i>=2 && i<=4){
-                       return ( <Children key={i} css={css`width:370px; &:hover{text-decoration:underline;} @media ${device.mobile}{width:100%;} `} >                                                
-                           <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'} css={css`width:350px;transform:scale(1); @media ${device.mobile}{width:40%;height:15vh;float:left;}`}/>
+                       return ( <Children className='children-three merge-grid2' key={i}  >                                                
+                           <Image src={typeof attachment==='object' ? attachment['source_url'] :'https://www.newspitara.com/wp-content/plugins/td-composer/legacy/Newspaper/assets/images/no-thumb/td_696x0.png'}  className="chlidren-image-three"/>
                             <div css={css`position:relative;marginLeft:10px;color:white;@media ${device.mobile}{float:left; width:57%;height:auto; margin-left:5px; }`}>
                                 <p style={{fontSize:'0.7rem',color:'#4169E1'}}>{category.name}</p>
                                 <Link href={post.link+post.id}>
-                                    <h1 css={css`color:black;margin-top:5px;font-size:18px;width:20rem;text-transform: capitalize; &:hover{text-decoration:underline;} @media ${device.mobile}{font-size:15px;font-weight:500;width:100%;} `}>{link}</h1>
+                                    <h1 css={css`color:black;margin-top:5px;font-size:18px;width:20rem;text-transform: capitalize;  &:hover{text-decoration:underline;} @media ${device.mobile}{font-size:15px;font-weight:500;width:100%;} `}>{link}</h1>
                                 </Link>
                                 <p style={{fontSize:'12px',marginTop:'5px',color:'black'}}>{author.name}-{new Date(post.date).toLocaleDateString('en-Us',{month:'long',day:'2-digit',year:'numeric'})}</p>
                             </div>                         
@@ -93,7 +192,7 @@ const FashionPage = ({state,actions}) => {
                      return;
                    }
             
-        }):''}
+        }):''} 
         </Posts>
       </PostContainer>
         <AdsContainer>
@@ -106,6 +205,7 @@ const FashionPage = ({state,actions}) => {
         <Footer mobileTop={'150px'}/>
         <UpFun/>
   </Container>
+  </>
   )
 }
 

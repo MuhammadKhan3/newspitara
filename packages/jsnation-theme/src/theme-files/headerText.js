@@ -79,7 +79,7 @@ const HeaderText = ({hide,sethide}) => {
          width:140px;
          position: relative;
          display:inline;
-         left: 50px;
+         left: 10%;
         //  margin-left:120px;
         //  margin-left:15px !important;
         @media ${device.mobile}{
@@ -102,16 +102,16 @@ const HeaderText = ({hide,sethide}) => {
            <ChildOneInner>
             <span style={{
               fontSize:'0.6rem',
-              marginLeft:'12.5rem'
-            }}>
+            }}
+            css={css`margin-left:20%;`}
+            >
               <img style={{position:'relative',top:'10px'}} src={typeof weather.weather==='object' && `http://openweathermap.org/img/w/${weather.weather['0'].icon}.png`} width="25" height="25"/> 
               {typeof weather.main ==='object' && Math.ceil(weather.main['temp']-273.15)}
               ,London
             </span>
             <span style={{
                   fontSize:'0.6rem',
-                  marginLeft:'2rem'
-            }}>
+                  marginLeft:'1%'}}>
               {date}
             </span>
            </ChildOneInner>
@@ -145,7 +145,7 @@ export default connect(HeaderText)
 
 const Container=styled.div`
 background-color:white;
-width:96%;
+width:auto;
 `
 const ChildOne=styled.div`
 background-color:white;
@@ -161,17 +161,25 @@ flex-basis:13rem;
 const ChildOneInner=styled.div`
 float:left;
 margin-top:6px;
-width:30%;
+width:80%;
+@media ${device.laptop}{
+  width:75%;
+}
+@media ${device.tablet}{
+  width:70%;
+}
 @media ${device.mobile}{
   display:none;
 }
 `
 const ChildTwoInner=styled.div`
-width:20%;
-margin-left:50rem;
-// position:relative;
-// margin-top:80px;
+width:auto;
+float:right;
+margin-top:10px;
+margin-left:5%;
 
+// margin-left:50rem;
+// position:relative;
 @media ${device.mobile}{
 display:none;  
 }
@@ -181,7 +189,7 @@ display:none;
 const ChildTwo=styled.div`
 background:#FAFAFA;
 display:block;
-width:1583px;
+width:100%;
 // max-width:auto;
 margin:0 auto;
 height:60px;
